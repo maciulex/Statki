@@ -1,0 +1,130 @@
+.noSelectText, br {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -o-user-select: none;
+  -ms-user-select: none;
+      user-select: none;
+}
+
+body {
+  background-color: #27233A;
+  padding: 0;
+  margin: 0;
+}
+
+body .right {
+  float: right;
+}
+
+body header {
+  width: 100vw;
+  height: 5vh;
+  background-color: #505168;
+}
+
+body header a {
+  margin-left: 15px;
+  width: 60px;
+  position: relative;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+          transform: translateY(-50%);
+  display: inline-block;
+}
+
+body header a button {
+  cursor: pointer;
+  border-radius: 5px;
+  border: none;
+  background-color: #7D869C;
+  color: whitesmoke;
+  padding: 5px;
+}
+
+body .mainQueue {
+  width: 100vw;
+  height: 95vh;
+}
+
+body .mainQueue aside {
+  display: inline-block;
+  width: 20%;
+  height: 100%;
+  background-color: #585c6b;
+  float: right;
+  text-align: center;
+}
+
+body .mainQueue main {
+  float: left;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: (minmax(0, 1fr))[2];
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+  width: 80%;
+  height: 100%;
+}
+
+body .mainQueue .player {
+  width: 80%;
+  height: 80%;
+  -ms-grid-column-align: center;
+      justify-self: center;
+  -ms-flex-item-align: center;
+      -ms-grid-row-align: center;
+      align-self: center;
+  border-radius: 35px;
+  background-color: #505168;
+  overflow: hidden;
+}
+
+body .mainQueue .player .header {
+  width: 100%;
+  height: 45%;
+  display: inline-block;
+  overflow: hidden;
+}
+
+body .mainQueue .player .header img {
+  width: 35%;
+  max-height: 100%;
+  overflow: hidden;
+  border-radius: 0px 0px 15px 0px;
+}
+
+body .mainQueue .player .header section {
+  width: 65%;
+  float: right;
+}
+
+body .mainQueue .player .header section h1 {
+  font-size: 2em;
+  text-align: center;
+  width: 100%;
+  -webkit-margin-before: 1em;
+          margin-block-start: 1em;
+  -webkit-margin-after: 1em;
+          margin-block-end: 1em;
+}
+
+body .mainQueue .player .header section div {
+  float: right;
+  width: calc(100% - 20px);
+  margin: 10px;
+}
+
+body .mainQueue .player .stats {
+  height: 45%;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: (1fr)[3];
+      grid-template-columns: repeat(3, 1fr);
+  row-gap: 15px;
+}
+
+body .mainQueue .player .stats div {
+  font-size: 1.5em;
+  padding: 10px;
+  text-align: center;
+}
+/*# sourceMappingURL=style.css.map */

@@ -1,0 +1,83 @@
+$backgroundColor-Dark: #27233A;
+$backgroundColorSecond-Dark: #505168;
+$backgroundColorThird-Dark: #585c6b;
+$backgroundColorFour-Dark: #7D869C;
+$borderColor-Dark: #40434E;
+
+body {
+    padding: 0;
+    margin: 0;
+    background-color: $backgroundColor-Dark;    
+    hr {
+        border-color: $borderColor-Dark;
+        margin-left: 15%;
+        margin-right: 15%;
+    }
+    #indexMainContainer {
+        width: 100vw;
+        height: 100vh;
+        display: grid;
+        justify-content: center;
+        align-content: center;
+        #mainContent {
+            width: 50vw;
+            height: 75vh;
+            background-color: $backgroundColorSecond-Dark;
+            border-radius: 50px;
+            border: 1px solid $borderColor-Dark;
+            h1{
+                text-align: center;
+            }
+            nav  {
+                text-align: center;
+                div {
+                    width: 25%;
+                    display: inline-block;
+                    border-radius: 5px;
+                }
+                div:hover {
+                    background-color: $borderColor-Dark;
+                    cursor: pointer;
+                }
+                .selected {
+                    background-color: $backgroundColorThird-Dark;
+                }
+                .selected:hover {
+                    background-color: $backgroundColorThird-Dark !important;
+                    cursor: default !important;
+                }
+            }
+            main {
+                padding: 30px;
+                display: grid;
+                justify-content: center;
+                form {
+                    section {
+                        padding: 4px;
+                        border-radius: 2px;
+                    }
+                    section:hover {
+                        background-color: $backgroundColorThird-Dark;
+                    }
+                    width: 105%;
+                    input {
+                        float: right;
+                        border-radius: 2px;
+                        background-color: $backgroundColorFour-Dark;
+                        border: none;
+                        box-shadow: none;
+                    }
+                    button {
+                        border-radius: 2px;
+                        background-color: $backgroundColorFour-Dark;
+                        border: none;
+                        box-shadow: none;
+                        position: relative;
+                        left: 50%;
+                        transform: translateX(-50%);
+                    }
+                }
+            }
+        }
+    }
+}

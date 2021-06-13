@@ -1,0 +1,103 @@
+body {
+  padding: 0;
+  margin: 0;
+  background-color: #27233A;
+}
+
+body hr {
+  border-color: #40434E;
+  margin-left: 15%;
+  margin-right: 15%;
+}
+
+body #indexMainContainer {
+  width: 100vw;
+  height: 100vh;
+  display: -ms-grid;
+  display: grid;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -ms-flex-line-pack: center;
+      align-content: center;
+}
+
+body #indexMainContainer #mainContent {
+  width: 50vw;
+  height: 75vh;
+  background-color: #505168;
+  border-radius: 50px;
+  border: 1px solid #40434E;
+}
+
+body #indexMainContainer #mainContent h1 {
+  text-align: center;
+}
+
+body #indexMainContainer #mainContent nav {
+  text-align: center;
+}
+
+body #indexMainContainer #mainContent nav div {
+  width: 25%;
+  display: inline-block;
+  border-radius: 5px;
+}
+
+body #indexMainContainer #mainContent nav div:hover {
+  background-color: #40434E;
+  cursor: pointer;
+}
+
+body #indexMainContainer #mainContent nav .selected {
+  background-color: #585c6b;
+}
+
+body #indexMainContainer #mainContent nav .selected:hover {
+  background-color: #585c6b !important;
+  cursor: default !important;
+}
+
+body #indexMainContainer #mainContent main {
+  padding: 30px;
+  display: -ms-grid;
+  display: grid;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+body #indexMainContainer #mainContent main form {
+  width: 105%;
+}
+
+body #indexMainContainer #mainContent main form section {
+  padding: 4px;
+  border-radius: 2px;
+}
+
+body #indexMainContainer #mainContent main form section:hover {
+  background-color: #585c6b;
+}
+
+body #indexMainContainer #mainContent main form input {
+  float: right;
+  border-radius: 2px;
+  background-color: #7D869C;
+  border: none;
+  -webkit-box-shadow: none;
+          box-shadow: none;
+}
+
+body #indexMainContainer #mainContent main form button {
+  border-radius: 2px;
+  background-color: #7D869C;
+  border: none;
+  -webkit-box-shadow: none;
+          box-shadow: none;
+  position: relative;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+          transform: translateX(-50%);
+}
+/*# sourceMappingURL=index.css.map */

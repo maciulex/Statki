@@ -1,0 +1,113 @@
+$backgroundColor-Dark: #27233A;
+$backgroundColorSecond-Dark: #505168;
+$backgroundColorThird-Dark: #585c6b;
+$backgroundColorFour-Dark: #7D869C;
+$gameBackground-Dark: #4F5D75;
+$borderColor-Dark: #40434E;
+
+.noSelectText, br {
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+}
+
+body {
+    background-color: $backgroundColor-Dark;
+    padding: 0;
+    margin: 0;
+    .right {
+        float: right;
+    }
+    header {
+        width: 100vw;
+        height: 5vh;
+        background-color: $backgroundColorSecond-Dark;
+        a {
+            margin-left: 15px;
+            width: 60px;
+            position: relative;
+            top: 50%;
+            transform: translateY(-50%);
+            display: inline-block;
+            button {
+                cursor: pointer;
+                border-radius: 5px;
+                border: none;
+                background-color: $backgroundColorFour-Dark;
+                color: whitesmoke;
+                padding: 5px;
+            }
+        }
+    }
+    .mainQueue {
+        width: 100vw;
+        height: 95vh;
+        aside {
+            display: inline-block;
+            width: 20%;
+            height: 100%;
+            background-color: $backgroundColorThird-Dark;
+            float: right;
+            text-align: center;
+        }
+        main {
+            float: left;
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            width: 80%;
+            height: 100%;
+        }
+        .player {
+            width: 80%;
+            height: 80%;
+            justify-self: center;
+            align-self: center;
+            border-radius: 35px;
+            background-color: $backgroundColorSecond-Dark;
+            overflow: hidden;
+            .header {
+                width: 100%;
+                height: 45%;
+                display: inline-block;
+                overflow: hidden;
+                img {
+                    width: 35%;
+                    max-height: 100%;
+                    overflow: hidden;
+                    border-radius: 0px 0px 15px 0px;
+                }
+                section {
+                    width: 65%;
+                    float: right;
+                    h1 {
+                        font-size: 2em;
+                        text-align: center;
+                        width: 100%;     
+                        margin-block-start: 1em;
+                        margin-block-end: 1em;               
+                    }
+                    div {
+                        float: right;
+                        width: calc(100% - 20px);
+                        margin: 10px;
+                    }
+                }
+
+            }
+            .stats {
+                height: 45%;
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                row-gap: 15px;
+                div {
+                    font-size: 1.5em;
+                    padding: 10px;
+                    text-align: center;
+                }
+            }
+        }
+    }
+    
+}
