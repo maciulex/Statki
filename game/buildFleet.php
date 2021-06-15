@@ -48,17 +48,14 @@
             <a href="../mainLogged/profil.php" class="right"><button>Profil</button></a>
             <a href="../mainLogged/index.php" class="right" style="width:75px"><button>Lista gier</button></a>
         </header>    
-        <section class="mainQueue noSelectText">
-            <aside class="noSelect">
-
-            </aside>
+        <section class="buildFleet noSelectText">
             <main>
 
             </main>
         </section>
         <script>
-            queueEngine(0);
-            var intervals = setInterval(function(){queueEngine(0);}, 1000);
+            buildEngine(0);
         </script>
     </body>
+    <div id="pickedUp"></div>
 </html>

@@ -109,5 +109,61 @@ body {
             }
         }
     }
-    
+    .buildFleet {
+        display: grid;
+        grid-template-columns: auto auto;
+        width: 100vw;
+        height: 95vh;
+        #freeShips {
+            td {
+                border: 0;
+                padding: 2px;
+            }
+            .ship {
+                border: 1px solid black;
+
+            }
+        }
+        #busyShips {
+            background-color: $backgroundColorFour-Dark;
+        }
+        table {
+            justify-self: center;
+            align-self: center;
+            width: 70vh;
+            height: 70vh;
+            border-collapse: collapse;
+            td {
+                width: 1fr;
+                height: 1fr;
+                border: 1px solid black;
+            }
+            .ship {
+                background-color: white;
+            }
+        }
+    }
+    .pickedUp{ 
+        background-color: $backgroundColorFour-Dark !important;
+    }
+    #pickedUp {
+        position: fixed;
+        table {
+            background-color: white;
+            td {
+                border: 1px solid black;
+            }
+            padding: 0px;
+            margin: 0px;
+        }
+    }
+    .rotation90 {
+        transform: rotate(90deg);
+    }
+    .whileShip {
+        background-color: black;
+    }
+    .displayOff {
+        display: none;
+    }
 }

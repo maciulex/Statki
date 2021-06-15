@@ -6,7 +6,7 @@
     }
     $action = intval($_GET['action']);
     // 0 = wczytanie 1 = opuszczenie gry 2 wyrzucenie gracza 3 start gry
-    if ($action != 0 && $action != 1 && $action != 2) {
+    if ($action != 0 && $action != 1 && $action != 2 && $action != 3) {
         echo "error 2";
         exit();
     }

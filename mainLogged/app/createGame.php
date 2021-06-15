@@ -48,16 +48,16 @@
             exit();
         }
         if ($passwordBool) {
-            $sql = "INSERT INTO games (name,password,privacy,shipsP1,shootsP1,shipsP2,shootsP2) VALUES (?,?,2,?,?,?,?)";
+            $sql = "INSERT INTO games (name,password,privacy,shipsP1,shipsP2) VALUES (?,?,2,?,?)";
             $stmt = $connection -> prepare($sql);
-            $stmt -> bind_param("ssssss", $_POST['name'], $password,$rawPlank,$rawPlank,$rawPlank,$rawPlank);
+            $stmt -> bind_param("ssss", $_POST['name'], $password,$rawPlank,$rawPlank);
             $stmt -> execute();
             $stmt -> close();
             $location = "Location: gameJoin.php?name=".$_POST['name']."&password=".$password;
         } else {
-            $sql = "INSERT INTO games (name,privacy,shipsP1,shootsP1,shipsP2,shootsP2) VALUES (?,1,?,?,?,?)";
+            $sql = "INSERT INTO games (name,privacy,shipsP1,shipsP2) VALUES (?,1,?,?)";
             $stmt = $connection -> prepare($sql);
-            $stmt -> bind_param("sssss", $_POST['name'],$rawPlank ,$rawPlank, $rawPlank, $rawPlank);
+            $stmt -> bind_param("sss", $_POST['name'],$rawPlank ,$rawPlank);
             $stmt -> execute();
             $stmt -> close();
             $location = "Location: gameJoin.php?name=".$_POST['name'];

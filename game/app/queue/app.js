@@ -1,5 +1,13 @@
 var host = false;
 var playersNumber = 0;
+var size;
+// czy jest coś złapane który statek który blok statku rotacja długość statku
+var track = [false,0,0,0,0];
+let width;
+//element x y width height
+let elementB = [null,null,null,null,null];
+let lastMove = 0;
+let mouseClickHelper = false;
 function queueEngine(arg) {
     function xmlEngine() {
         var xml = new XMLHttpRequest;
@@ -77,8 +85,11 @@ function queueEngine(arg) {
         }
     }
     function gameLoad(data) {
-        let place = document.querySelector(".mainQueue aside");
         data = data.split(";");
+        if (data[1] == "2") {
+            window.location = "buildFleet.php";
+        }
+        let place = document.querySelector(".mainQueue aside");
         place.innerHTML = `
             <br><br>
             Nazwa gry: ${data[0]}<br>
@@ -114,9 +125,191 @@ function queueEngine(arg) {
     }
     function hostLoad() {
         if (playersNumber == 2) {
-            document.querySelector(".hostOption").innerHTML = "<button>Rozpocznij grę</button>";
+            document.querySelector(".hostOption").innerHTML = `<button onclick="queueEngine(3)">Rozpocznij grę</button>`;
         }
     }
     xmlEngine();
 }
-var intervals = setInterval(function(){queueEngine(0);}, 1000);
+
+function buildEngine(arg) {
+    //length, rotation | x, y if null == -1 
+    let shipsData = [[5, 0, -1, -1],[4, 0, -1, -1],[3, 0, -1, -1],[3, 0, -1, -1],[2, 0, -1, -1]];
+    function buildBoard(x,y) {
+        size = [x,y];
+        let place = document.querySelector(".buildFleet");
+        let raw = "";
+        for (let i = 0; i < 20; i++) {
+            raw += "<tr>";
+            for (let z = 0; z < 20; z++) {
+                raw += "<td></td>";
+            }
+            raw += "</tr>";
+        }
+        place.innerHTML = `<table id="freeShips"><tbody>${raw}</tbody></table>`;
+        raw = "";
+        for (let i = 0; i < x; i++) {
+            raw += "<tr>";
+            for (let z = 0; z < y; z++) {
+                raw += "<td></td>";
+            }
+            raw += "</tr>";
+        }
+        place.innerHTML += `<table id="busyShips"><tbody>${raw}</tbody></table>`;
+
+    }
+    function buildShips() {
+        let freeShips = document.querySelector("#freeShips");
+        let busyShips = document.querySelector("#busyShips");
+        for (let i = 0; i < shipsData.length; i++) {
+            if (shipsData[i][2] == -1) {
+                for (let z = 0; z < shipsData[i][0]; z++) {
+                    freeShips.rows[i*2].cells[19-z].classList.add("ship", "Ship"+i, "No"+z);
+                    freeShips.rows[i*2].cells[19-z].setAttribute("onclick", `shipClicked(${i}, ${z})`);
+                }
+            } else {
+                
+            }
+        }
+    }
+    switch (arg) {
+        case 0: 
+            buildBoard(10,10);
+            buildShips();
+        break;
+    }
+}
+
+document.addEventListener("mousemove", function (ev) {
+    if(Date.now() - lastMove > 15) {
+        if (track[0]) {
+            let table = document.querySelector("#busyShips");
+            document.querySelector("#pickedUp").style.top = (ev.clientY-(.5*width))+'px';
+            document.querySelector("#pickedUp").style.left = (ev.clientX-((.5*track[4])*width))+'px'; 
+            var reset = document.querySelectorAll(".whileShip");
+            if (reset.length != 0) {
+                for (let i = 0; i < reset.length; i++) {
+                    reset[i].classList.remove("whileShip");
+                }
+            }
+            if ((elementB[1] < ev.clientX && elementB[2] < ev.clientY) && (elementB[1]+elementB[3] > ev.clientX && elementB[2]+elementB[4] > ev.clientY)) {
+                let row = Math.floor((ev.clientY-elementB[2])/width);
+                let cell = Math.floor((ev.clientX-elementB[1])/width);
+                if (track[3] == 0) {
+                    var validate = true;
+                    for (let i = Math.round(-1*(track[4]/2)); i < Math.round(track[4]/2); i++) {
+                        if (!(row < 0 || row > size[0] || cell+i < 0 || cell+i > size[1])) {
+                            if (table.rows[row].cells[cell+i].style.backgroundColor == "black") {
+                                validate = false;
+                                break;
+                            }
+                        } else {
+                            validate = false;
+                            break;
+                        }
+                    }
+                    if (validate) {
+                        for (let i = Math.round(-1*(track[4]/2)); i < Math.round(track[4]/2); i++) {
+                            table.rows[row].cells[cell+i].classList.add("whileShip");
+                            validation(0);
+                        }
+                    } else {
+                        validation(1);
+                    }
+                } else {
+                    var validate = true;
+                    for (let i = Math.round(-1*(track[4]/2)); i < Math.round(track[4]/2); i++) {
+                        if (!(row+i < 0 || row+i > size[0] || cell < 0 || cell > size[1])) {
+                            if (table.rows[row+i].cells[cell].style.backgroundColor == "black") {
+                                validate = false;
+                                break;
+                            }
+                        } else {
+                            validate = false;
+                            break;
+                        }
+                    }
+                    if (validate) {
+                        for (let i = Math.round(-1*(track[4]/2)); i < Math.round(track[4]/2); i++) {
+                            table.rows[row+i].cells[cell].classList.add("whileShip");
+                            validation(0);
+                        }
+                    } else {
+                        validation(1);
+                    }
+                }
+                function validation(arg) {
+                    switch(arg) {
+                        case 0:
+                            document.querySelector("#pickedUp").classList.add("displayOff");
+                        break;
+                        case 1:
+                            document.querySelector("#pickedUp").classList.remove("displayOff");
+                        break;
+                    }
+                }
+            }
+        } 
+        lastMove = Date.now();
+    }
+});
+document.addEventListener("keypress", function (ev) {
+    if (ev.keyCode == 114 && track[0]) {    
+        let place = document.querySelector("#pickedUp");
+        if (track[3] == 0) {
+            place.classList.add("rotation90");
+            track[3] = 1;
+        } else {
+            place.classList.remove("rotation90");
+            track[3] = 0;
+        }
+    }
+});
+document.addEventListener("click", function (ev) {
+    var waitingShips = document.querySelectorAll(".whileShip");
+    if (waitingShips.length > 0) {
+        
+    } else if (track && mouseClickHelper) {
+        track = [false,0,0,0,0];
+        var clear = document.querySelectorAll(".pickedUp");
+        for (let i = 0; i < clear.length; i++) {
+            clear[i].classList.remove("pickedUp");
+        }
+        document.querySelector("#pickedUp").classList.add("displayOff");
+        mouseClickHelper = false;
+        elementB = [null,null,null,null,null];
+        lastMove = 0;
+        document.querySelector("#pickedUp").innerHTML = "";
+    } else {
+        mouseClickHelper = true;
+    }
+});
+function shipClicked(which, block) {
+    console.log("dupa "+which+" "+block);
+    if (!track[0]) {
+        track[0] = true;
+        track[1] = which;
+        track[2] = block;
+        let elements = document.querySelectorAll(".ship.Ship"+track[1]);
+        console.log(elements[0]);
+        let pickedRaw = "";
+        for (let i = 0; i < elements.length; i++) {
+            elements[i].classList.add("pickedUp");
+            pickedRaw += "<td></td>";
+            track[4] += 1;
+        }
+        width = document.querySelector("#busyShips tr td").offsetWidth;
+        console.log(width);
+        document.querySelector("#pickedUp").innerHTML = `<table cellspacing="0" cellpadding="0"><tbody><tr>${pickedRaw}</tr></tbody></table>`;
+        let pickedUp = document.querySelectorAll("#pickedUp tr td");
+        for (let i = 0; i < pickedUp.length; i++) {
+            pickedUp[i].style.width = width+"px";
+            pickedUp[i].style.height = width+"px";
+        }
+        elementB[0] = document.querySelector("#busyShips")
+        elementB[1] = elementB[0].offsetLeft;
+        elementB[2] = elementB[0].offsetTop;
+        elementB[3] = elementB[0].offsetWidth;
+        elementB[4] = elementB[0].offsetHeight;
+        document.querySelector("#pickedUp").classList.remove("displayOff");
+    }
+}

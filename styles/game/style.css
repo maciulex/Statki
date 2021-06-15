@@ -127,4 +127,78 @@ body .mainQueue .player .stats div {
   padding: 10px;
   text-align: center;
 }
+
+body .buildFleet {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: auto auto;
+      grid-template-columns: auto auto;
+  width: 100vw;
+  height: 95vh;
+}
+
+body .buildFleet #freeShips td {
+  border: 0;
+  padding: 2px;
+}
+
+body .buildFleet #freeShips .ship {
+  border: 1px solid black;
+}
+
+body .buildFleet #busyShips {
+  background-color: #7D869C;
+}
+
+body .buildFleet table {
+  -ms-grid-column-align: center;
+      justify-self: center;
+  -ms-flex-item-align: center;
+      -ms-grid-row-align: center;
+      align-self: center;
+  width: 70vh;
+  height: 70vh;
+  border-collapse: collapse;
+}
+
+body .buildFleet table td {
+  width: 1fr;
+  height: 1fr;
+  border: 1px solid black;
+}
+
+body .buildFleet table .ship {
+  background-color: white;
+}
+
+body .pickedUp {
+  background-color: #7D869C !important;
+}
+
+body #pickedUp {
+  position: fixed;
+}
+
+body #pickedUp table {
+  background-color: white;
+  padding: 0px;
+  margin: 0px;
+}
+
+body #pickedUp table td {
+  border: 1px solid black;
+}
+
+body .rotation90 {
+  -webkit-transform: rotate(90deg);
+          transform: rotate(90deg);
+}
+
+body .whileShip {
+  background-color: black;
+}
+
+body .displayOff {
+  display: none;
+}
 /*# sourceMappingURL=style.css.map */
