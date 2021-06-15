@@ -194,8 +194,12 @@ body .rotation90 {
           transform: rotate(90deg);
 }
 
-body .whileShip {
+body .whileShip, body .solidShip {
   background-color: black;
+}
+
+body .itsPlaced {
+  background-color: grey !important;
 }
 
 body .displayOff {

@@ -197,6 +197,10 @@ body .gameCreateMainContainer .gameCreateMain form section {
   height: 17px;
 }
 
+body .gameCreateMainContainer .gameCreateMain form .radio {
+  height: 80px;
+}
+
 body .gameCreateMainContainer .gameCreateMain form section:hover {
   background-color: #585c6b;
 }

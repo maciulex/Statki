@@ -133,7 +133,6 @@ function queueEngine(arg) {
 
 function buildEngine(arg) {
     //length, rotation | x, y if null == -1 
-    let shipsData = [[5, 0, -1, -1],[4, 0, -1, -1],[3, 0, -1, -1],[3, 0, -1, -1],[2, 0, -1, -1]];
     function buildBoard(x,y) {
         size = [x,y];
         let place = document.querySelector(".buildFleet");
@@ -198,7 +197,7 @@ document.addEventListener("mousemove", function (ev) {
                     var validate = true;
                     for (let i = Math.round(-1*(track[4]/2)); i < Math.round(track[4]/2); i++) {
                         if (!(row < 0 || row > size[0] || cell+i < 0 || cell+i > size[1])) {
-                            if (table.rows[row].cells[cell+i].style.backgroundColor == "black") {
+                            if (table.rows[row].cells[cell+i].classList.contains("solidShip")) {
                                 validate = false;
                                 break;
                             }
@@ -219,7 +218,7 @@ document.addEventListener("mousemove", function (ev) {
                     var validate = true;
                     for (let i = Math.round(-1*(track[4]/2)); i < Math.round(track[4]/2); i++) {
                         if (!(row+i < 0 || row+i > size[0] || cell < 0 || cell > size[1])) {
-                            if (table.rows[row+i].cells[cell].style.backgroundColor == "black") {
+                            if (table.rows[row+i].cells[cell].classList.contains("solidShip")) {
                                 validate = false;
                                 break;
                             }
@@ -267,30 +266,55 @@ document.addEventListener("keypress", function (ev) {
 document.addEventListener("click", function (ev) {
     var waitingShips = document.querySelectorAll(".whileShip");
     if (waitingShips.length > 0) {
-        
+        for (let i = 0; i < waitingShips.length; i++) {
+            waitingShips[i].classList.add(`solidShip`, `shipNo${track[1]}`, `rotation${track[3]}`);
+            waitingShips[i].classList.remove("whileShip");
+            waitingShips[i].setAttribute("onclick", `deleteShip(${track[1]})`);
+        }
+        mouseClickHelper = false;
+        var add = document.querySelectorAll(".pickedUp");
+        for (let i = 0; i < add.length; i++) {
+            add[i].classList.add("itsPlaced");
+        }
+        clear();
     } else if (track && mouseClickHelper) {
+        mouseClickHelper = false;
+        clear();
+    } else {
+        mouseClickHelper = true;
+    }
+    function clear() {
         track = [false,0,0,0,0];
         var clear = document.querySelectorAll(".pickedUp");
         for (let i = 0; i < clear.length; i++) {
             clear[i].classList.remove("pickedUp");
         }
         document.querySelector("#pickedUp").classList.add("displayOff");
-        mouseClickHelper = false;
         elementB = [null,null,null,null,null];
         lastMove = 0;
         document.querySelector("#pickedUp").innerHTML = "";
-    } else {
-        mouseClickHelper = true;
     }
 });
+function deleteShip(arg) {
+    let shipPlaced = document.querySelectorAll(".shipNo"+arg);
+    let shipBuild = document.querySelectorAll(".ship.Ship"+arg);
+    for (let i = 0; i < shipPlaced.length; i++) {
+        shipPlaced[i].removeAttribute("class");
+        shipPlaced[i].removeAttribute("onclick");
+        shipBuild[i].classList.remove("itsPlaced");
+    }
+
+}
 function shipClicked(which, block) {
-    console.log("dupa "+which+" "+block);
+    console.log(which+" "+block);
     if (!track[0]) {
+        let elements = document.querySelectorAll(".ship.Ship"+which);
+        if (elements[0].classList.contains("itsPlaced")) {
+            return;
+        }
         track[0] = true;
         track[1] = which;
         track[2] = block;
-        let elements = document.querySelectorAll(".ship.Ship"+track[1]);
-        console.log(elements[0]);
         let pickedRaw = "";
         for (let i = 0; i < elements.length; i++) {
             elements[i].classList.add("pickedUp");

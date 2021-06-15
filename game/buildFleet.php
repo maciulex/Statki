@@ -16,6 +16,7 @@
         header('Location: ../mainLogged/index.php');
         exit();
     } else {
+        $inGame;
         $sql = "SELECT inGame FROM users WHERE BINARY nickname = BINARY ?";
         $stmt = $connection -> prepare($sql);
         $stmt -> bind_param("s", $_SESSION['nickname']);
@@ -31,6 +32,25 @@
             exit();
         }
         $stmt -> close();
+        $readyShips = "[";
+        $sql = "SELECT gameShips FROM games WHERE id = ?";
+        $stmt = $connection -> prepare($sql);
+        $stmt -> bind_param("i", $inGame);
+        $stmt -> execute();
+        $stmt -> store_result();
+        $stmt -> bind_result($gameShips);
+        $stmt -> fetch();
+        $gameShips = explode(";;", $gameShips);
+        $clipboard = array();
+        foreach ($gameShips as $key) {
+            $key = explode(";",$key);
+            for ($i = 0; $i < intval($key[0]); $i++) {
+                $clipboard[] = "[".$key[1].",0,-1,-1]";
+            }
+        }
+        $readyShips.=implode(",",$clipboard);
+        $readyShips .= "]";
+        $stmt -> close();
         mysqli_close($connection);
     }
 ?>
@@ -40,6 +60,9 @@
         <title>Statki</title>
         <meta charset="utf-8">
         <link href="../styles/game/style.css" rel="stylesheet">
+        <script>
+            let shipsData = <?php echo $readyShips;?>; 
+        </script>
         <script src="app/queue/app.js"></script>
     </head>
     <body>
