@@ -71,6 +71,30 @@
             <a href="../mainLogged/profil.php" class="right"><button>Profil</button></a>
             <a href="../mainLogged/index.php" class="right" style="width:75px"><button>Lista gier</button></a>
         </header>    
+        <aside class="asideBuild">
+            Instrukcja:<br>
+            Kliknij na statek<br>
+            Najedź na miejsce gdzie statek ma być<br>
+            Jak potrzebujesz go obrócić kliknij "R"<br>
+            Kliknij by postawić statek <br>
+            Jak chcesz zmienić miejsce statku kliknij go na planszy<br><br>
+
+            Jak ułożysz wszystkie statki poniżej pojawi się guzik walidacja<br>
+            musisz go kliknąć wyżej powinnien pojawić się rezultat który powinnien zawierać "Poprawna walidacja"<br>
+            jeżeli tego nie zawiera masz źle ustawioną albo coś źle działa <br><br>
+
+            Jak zmienisz układ statków po walidacji pamiętaj by ponownie ją zwalidować<br>
+            Walidacja oznacza jestem gotów a pierwsza zakceptowana flota będzie twoja <br>
+            chyba że zdążysz ją zmienić i zwalidować<br>
+            <div class="validation">
+                <div class="result"> 
+
+                </div>
+                <div class="doVal">
+
+                </div>
+            </div>
+        </aside>
         <section class="buildFleet noSelectText">
             <main>
 

@@ -171,6 +171,13 @@ body .buildFleet table .ship {
   background-color: white;
 }
 
+body .asideBuild {
+  position: fixed;
+  height: 100vh;
+  width: 15vw;
+  background-color: #7D869C;
+}
+
 body .pickedUp {
   background-color: #7D869C !important;
 }

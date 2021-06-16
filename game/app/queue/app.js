@@ -8,6 +8,7 @@ let width;
 let elementB = [null,null,null,null,null];
 let lastMove = 0;
 let mouseClickHelper = false;
+let setShips = 0;
 function queueEngine(arg) {
     function xmlEngine() {
         var xml = new XMLHttpRequest;
@@ -277,6 +278,10 @@ document.addEventListener("click", function (ev) {
             add[i].classList.add("itsPlaced");
         }
         clear();
+        setShips += 1;
+        if (setShips == shipsData.length) {
+            document.querySelector(".doVal").innerHTML = `<button onclick="shipsValidation()")>Waliduj</button>`;
+        }
     } else if (track && mouseClickHelper) {
         mouseClickHelper = false;
         clear();
@@ -303,10 +308,10 @@ function deleteShip(arg) {
         shipPlaced[i].removeAttribute("onclick");
         shipBuild[i].classList.remove("itsPlaced");
     }
-
+    setShips--;
+    document.querySelector(".doVal").innerHTML = ``;
 }
 function shipClicked(which, block) {
-    console.log(which+" "+block);
     if (!track[0]) {
         let elements = document.querySelectorAll(".ship.Ship"+which);
         if (elements[0].classList.contains("itsPlaced")) {
@@ -322,7 +327,6 @@ function shipClicked(which, block) {
             track[4] += 1;
         }
         width = document.querySelector("#busyShips tr td").offsetWidth;
-        console.log(width);
         document.querySelector("#pickedUp").innerHTML = `<table cellspacing="0" cellpadding="0"><tbody><tr>${pickedRaw}</tr></tbody></table>`;
         let pickedUp = document.querySelectorAll("#pickedUp tr td");
         for (let i = 0; i < pickedUp.length; i++) {
@@ -336,4 +340,26 @@ function shipClicked(which, block) {
         elementB[4] = elementB[0].offsetHeight;
         document.querySelector("#pickedUp").classList.remove("displayOff");
     }
+}
+function shipsValidation() {
+    let shipS = [];
+    for (let i = 0; i < shipsData.length; i++) {
+        let ship = document.querySelectorAll(".shipNo"+i);
+        let mystr = [];
+        for (let z = 0; z < ship.length; z++) {
+            mystr.push((ship[z].cellIndex+";"+ship[z].parentNode.rowIndex));
+        }
+        mystr= mystr.join(";;");
+        shipS.push(mystr);
+    }
+    shipS = shipS.join(";;;");
+    console.log(shipS);
+    var xml = new XMLHttpRequest;
+    xml.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            console.log(this.responseText);
+        }
+    }
+    xml.open("GET", "app/queue/validateShips.php?data="+shipS, true);
+    xml.send();
 }
