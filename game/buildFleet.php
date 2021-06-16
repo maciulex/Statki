@@ -76,6 +76,7 @@
             Kliknij na statek<br>
             Najedź na miejsce gdzie statek ma być<br>
             Jak potrzebujesz go obrócić kliknij "R"<br>
+            Żeby bloczek się odwrócił bądź zaktualizował trzeba poruszyć myszką<br>
             Kliknij by postawić statek <br>
             Jak chcesz zmienić miejsce statku kliknij go na planszy<br><br>
 
