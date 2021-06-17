@@ -194,18 +194,16 @@
             $stmt -> bind_result($readyFleets, $status);
             $stmt -> fetch();
             $readyPlayers = 0;
-            if ($status == "2") {
-                $readyFleets = explode(";",$readyFleets);
-                foreach($readyFleets as $key){
-                    if ($key != "") {
-                        $readyPlayers += 1;
-                    }
+            $readyFleets = explode(";",$readyFleets);
+            foreach($readyFleets as $key){
+                if ($key != "") {
+                    $readyPlayers += 1;
                 }
-                echo $readyPlayers;
             }
+            echo $readyPlayers;
             $stmt -> close();
             if ($readyPlayers == 2) {
-                $sql = 'UPDATE game SET status = 3 WHERE name = ?';
+                $sql = 'UPDATE games SET status = 3 WHERE name = ?';
                 $stmt = $connection -> prepare($sql);
                 $stmt -> bind_param("s", $_SESSION['serverName']);
                 $stmt -> execute();

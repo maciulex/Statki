@@ -16,6 +16,8 @@
         header('Location: ../mainLogged/index.php');
         exit();
     } else {
+        $page = "buildFleet";
+        include_once "app/imGame.php";
         $inGame;
         $sql = "SELECT inGame FROM users WHERE BINARY nickname = BINARY ?";
         $stmt = $connection -> prepare($sql);

@@ -89,7 +89,9 @@ function queueEngine(arg) {
         data = data.split(";");
         if (data[1] == "2") {
             window.location = "buildFleet.php";
-        }
+        } else if (data[1] == "3") {
+            window.location = "battleField.php";
+        } 
         let place = document.querySelector(".mainQueue aside");
         place.innerHTML = `
             <br><br>
