@@ -13,7 +13,6 @@
             @include_once "../../base.php";
             $connection = @new mysqli($db_host, $db_user, $db_password, $db_name);
             if ($connection -> connect_errno > 0) {
-                @mysqli_close($connection);
                 $_SESSION['error'] = "Mamy problem, proszę o zgłoszenie tego, error: 001";
                 header("Location: ../../index.php");
                 exit();

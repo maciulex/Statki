@@ -357,9 +357,24 @@ function shipsValidation() {
     var xml = new XMLHttpRequest;
     xml.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
-            console.log(this.responseText);
+            alert(this.responseText);
         }
     }
     xml.open("GET", "app/queue/validateShips.php?data="+shipS, true);
+    xml.send();
+}
+
+function getReadyPlayers() {
+    let xml = new XMLHttpRequest;
+    xml.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            console.log(this.responseText);
+            document.querySelector(".gameReturnBlock").innerHTML = "Gotowych graczy: "+this.responseText+"/2";
+            if (this.responseText == "2") {
+                window.location = "battleField.php";
+            }
+        }
+    }
+    xml.open("GET", "app/queue/queueEngine.php?action=4", true);
     xml.send();
 }

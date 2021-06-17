@@ -83,21 +83,41 @@
         }
         $plain = "0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0";
         $plain = explode(";", $plain);
-        print_r($ships);
         foreach ($ships as $key) {
             $localKey = explode(";;", $key);
             foreach ($localKey as $ubu) {
                 $ubu = explode(";",$ubu);
                 $location = intval($ubu[0])+intval($ubu[1])*10;
-                print_r($ubu);
-                echo " $location       ";
                 $plain[$location] = 1;
             }
         }
+        $readyFleets;
         $plain = implode(";",$plain);
         $sql = "UPDATE games SET ".$me." = ? WHERE name = ?";
         $stmt = $connection -> prepare($sql);
         $stmt -> bind_param("ss", $plain, $_SESSION["serverName"]);
+        $stmt -> execute();
+        $stmt -> close();
+        $sql = "SELECT readyFleets FROM games WHERE name = ?";
+        $stmt = $connection -> prepare($sql);
+        $stmt -> bind_param("s", $_SESSION["serverName"]);
+        $stmt -> execute();
+        $stmt -> store_result();
+        $stmt -> bind_result($readyFleets);
+        $stmt -> fetch();
+        $stmt -> close();
+        $readyFleets = explode(";", $readyFleets);
+        if ($readyFleets[0] != $_SESSION['nickname'] && $readyFleets[1] != $_SESSION['nickname']) {
+            if ($readyFleets[0] == "") {
+                $readyFleets[0] = $_SESSION['nickname'];
+            } else {
+                $readyFleets[1] = $_SESSION['nickname'];
+            }
+        }
+        $readyFleets = implode(";", $readyFleets);
+        $sql = "UPDATE games SET readyFleets = ? WHERE name = ?";
+        $stmt = $connection -> prepare($sql);
+        $stmt -> bind_param("ss", $readyFleets, $_SESSION["serverName"]);
         $stmt -> execute();
         $stmt -> close();
     } else {

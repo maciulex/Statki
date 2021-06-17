@@ -212,4 +212,20 @@ body .itsPlaced {
 body .displayOff {
   display: none;
 }
+
+body .gameReturnBlock {
+  width: 40%;
+  height: 4vh;
+  display: inline-block;
+  position: relative;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+body .gameReturnBlock div {
+  display: inline-block;
+}
 /*# sourceMappingURL=style.css.map */

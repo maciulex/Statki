@@ -14,7 +14,7 @@
     }
     $action = intval($_GET['action']);
     // 0 = wczytanie 1 = opuszczenie gry 2 wyrzucenie gracza 3 start gry
-    if ($action != 0 && $action != 1 && $action != 2 && $action != 3) {
+    if ($action != 0 && $action != 1 && $action != 2 && $action != 3 && $action != 4) {
         echo "error 2";
         exit();
     }
@@ -184,6 +184,33 @@
             $stmt -> bind_param("s", $_SESSION['serverName']);
             $stmt -> execute();
             $stmt -> close();
+        break;
+        case 4:
+            $sql = 'SELECT readyFleets, status FROM games WHERE name = ?';
+            $stmt = $connection -> prepare($sql);
+            $stmt -> bind_param("s", $_SESSION['serverName']);
+            $stmt -> execute();
+            $stmt -> store_result();
+            $stmt -> bind_result($readyFleets, $status);
+            $stmt -> fetch();
+            $readyPlayers = 0;
+            if ($status == "2") {
+                $readyFleets = explode(";",$readyFleets);
+                foreach($readyFleets as $key){
+                    if ($key != "") {
+                        $readyPlayers += 1;
+                    }
+                }
+                echo $readyPlayers;
+            }
+            $stmt -> close();
+            if ($readyPlayers == 2) {
+                $sql = 'UPDATE game SET status = 3 WHERE name = ?';
+                $stmt = $connection -> prepare($sql);
+                $stmt -> bind_param("s", $_SESSION['serverName']);
+                $stmt -> execute();
+                $stmt -> close();
+            }
         break;
     }
     mysqli_close($connection);

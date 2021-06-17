@@ -68,6 +68,8 @@
     <body>
         <header class="noSelectText">
             <a href="../user/indexManagment/logout.php"><button>Wyloguj</button></a>
+            <section class="gameReturnBlock">
+            </section>
             <a href="../mainLogged/profil.php" class="right"><button>Profil</button></a>
             <a href="../mainLogged/index.php" class="right" style="width:75px"><button>Lista gier</button></a>
         </header>    
@@ -103,6 +105,7 @@
         </section>
         <script>
             buildEngine(0);
+            let interval = setInterval(getReadyPlayers, 1000);
         </script>
     </body>
     <div id="pickedUp"></div>

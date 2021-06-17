@@ -175,4 +175,17 @@ body {
     .displayOff {
         display: none;
     }
+    .gameReturnBlock {
+        width: 40%;
+        height: 4vh;
+        display: inline-block;
+        position: relative;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%,-50%);
+        text-align: center;
+        div {
+            display: inline-block;
+        }
+    }
 }

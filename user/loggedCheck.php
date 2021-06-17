@@ -4,7 +4,6 @@
         session_destroy();
         session_start();
         $_SESSION['error'] = "Mamy problem, proszę o zgłoszenie tego, error: 001";
-        @mysqli_close($connection);
         header("Location: ".$mainIndexPath);
         exit();
     } else {
