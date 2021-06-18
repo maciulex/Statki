@@ -228,4 +228,33 @@ body .gameReturnBlock {
 body .gameReturnBlock div {
   display: inline-block;
 }
+
+body .batteField {
+  display: -ms-grid;
+  display: grid;
+  height: 95vh;
+  -ms-grid-columns: 0.23fr auto auto;
+      grid-template-columns: 0.23fr auto auto;
+}
+
+body .batteField table {
+  width: 90%;
+  margin: 5%;
+}
+
+body .batteField table td {
+  margin: 0;
+  padding: 0;
+  border: 1px solid black;
+  background-color: #7D869C;
+}
+
+body .batteField table .headerTable {
+  text-align: center;
+  font-size: 150%;
+}
+
+body .batteField aside {
+  background-color: #7D869C;
+}
 /*# sourceMappingURL=style.css.map */

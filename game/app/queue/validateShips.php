@@ -11,10 +11,14 @@
         echo "error 1";
         exit();
     }
-    $shipsValidationI = array(0,0,0,0,0);
-    $shipsValidationO = array(0,0,0,0,0);
+    $shipsValidationI = array(0,0,0,0,0,0);
+    $shipsValidationO = array(0,0,0,0,0,0);
     include_once "../../../base.php";
     $connection = new mysqli($db_host, $db_user, $db_password, $db_name);
+    if ($connection -> connect_errno > 0) {
+        echo "error";
+        exit();
+    }
     $gameShips;$playersNicks;
     $sql = "SELECT gameShips, playersNicks FROM games WHERE name = ?";
     $stmt = $connection -> prepare($sql);
@@ -115,9 +119,10 @@
             }
         }
         $readyFleets = implode(";", $readyFleets);
-        $sql = "UPDATE games SET readyFleets = ? WHERE name = ?";
+        $sql = "UPDATE games SET readyFleets = ?, gameStart = ?, lastAction = ? WHERE name = ?";
         $stmt = $connection -> prepare($sql);
-        $stmt -> bind_param("ss", $readyFleets, $_SESSION["serverName"]);
+        $time = time();
+        $stmt -> bind_param("ssss", $readyFleets, $time, $time ,$_SESSION["serverName"]);
         $stmt -> execute();
         $stmt -> close();
     } else {

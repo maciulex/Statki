@@ -25,22 +25,41 @@
         <title>Statki</title>
         <meta charset="utf-8">
         <link href="../styles/game/style.css" rel="stylesheet">
+        <script src="app/game/app.js"></script>
     </head>
     <body>
         <header class="noSelectText">
-            <a href="../user/indexManagment/logout.php"><button>Wyloguj</button></a>
-            <section class="gameReturnBlock">
+            <a href="../user/indexManagment/logout.php" style="float: left;"><button>Wyloguj</button></a>
+            <section class="gameReturnBlock" style="float: left;">
             </section>
             <a href="../mainLogged/profil.php" class="right"><button>Profil</button></a>
             <a href="../mainLogged/index.php" class="right" style="width:75px"><button>Lista gier</button></a>
         </header>    
-        <section class="buildFleet noSelectText">
-            <main>
+        <section class="batteField noSelectText">
+            <aside>
+                <main class="gameInfo">
+                    
+                </main>
+                <main>
+                </main>
+            </aside>
+            <section>
+                <table class="myFleet">
+                    <tbody>
 
-            </main>
+                    </tbody>
+                </table>
+            </section>
+            <section>
+                <table class="enemyFleet">
+                    <tbody>
+
+                    </tbody>
+                </table>
+            </section>
         </section>
         <script>
-
+            basicLoad();
         </script>
     </body>
     <div id="pickedUp"></div>

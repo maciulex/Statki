@@ -188,4 +188,26 @@ body {
             display: inline-block;
         }
     }
+    .batteField {
+        display: grid;
+        height: 95vh;
+        grid-template-columns: 0.23fr auto auto;
+        table {
+            width: 90%;
+            margin: 5%;
+            td {
+                margin: 0;
+                padding: 0;
+                border: 1px solid black;
+                background-color: $backgroundColorFour-Dark;
+            }
+            .headerTable {
+                text-align: center;
+                font-size: 150%;
+            }
+        }
+        aside {
+            background-color: $backgroundColorFour-Dark;
+        }
+    }
 }
