@@ -21,12 +21,12 @@
     switch ($action) {
         case 0:
             //getGameData
-            $sql = "SELECT name, playersNicks, whosTour, timeout, lastAction, shipsP1, shipsP2, gameShips FROM games WHERE name = ?";
+            $sql = "SELECT name, playersNicks, whosTour, timeout, lastAction, shipsP1, shipsP2, gameShips, status FROM games WHERE name = ?";
             $stmt = $connection -> prepare($sql);
             $stmt -> bind_param("s", $_SESSION['serverName']);
             $stmt -> execute();
             $stmt -> store_result();
-            $stmt -> bind_result($name, $playersNicks, $whosTour, $timeout, $lastAction, $shipsP1, $shipsP2, $gameShips);
+            $stmt -> bind_result($name, $playersNicks, $whosTour, $timeout, $lastAction, $shipsP1, $shipsP2, $gameShips, $status);
             $stmt -> fetch();
             $let = explode(";",$playersNicks);
             $me;
@@ -40,54 +40,71 @@
             } else {
                 $me = 1;
             }
-            echo $name.";;;".$playersNicks.";;;".$whosTour.";;;".$timeout.";;;".$lastAction.";;;".$shipsP1.";;;".$shipsP2.";;;".$gameShips.";;;".$me.";;;".time();
+            echo $name.";;;".$playersNicks.";;;".$whosTour.";;;".$timeout.";;;".$lastAction.";;;".$shipsP1.";;;".$shipsP2.";;;".$gameShips.";;;".$me.";;;".time().";;;".$status;
         break;
         case 1:
             //shoting
             $cord = intval($_GET['cord']);
             if (!empty($cord) && $cord > -1 && $cord < 100) {
                 $playersNicks; $whosTour; $ships= array();
-                $sql = "SELECT playersNicks, whosTour, shipsP1, shipsP2 FROM games WHERE name = ?";
+                $sql = "SELECT playersNicks, whosTour, shipsP1, shipsP2, status FROM games WHERE name = ?";
                 $stmt = $connection -> prepare($sql);
                 $stmt -> bind_param("s", $_SESSION['serverName']);
                 $stmt -> execute();
                 $stmt -> store_result();
-                $stmt -> bind_result($playersNicks, $whosTour, $ships[0], $ships[1]);
+                $stmt -> bind_result($playersNicks, $whosTour, $ships[0], $ships[1], $status);
                 $stmt -> fetch();
                 $stmt->close();
-                $playersNicks = explode(";",$playersNicks);
-                if ($playersNicks[$whosTour] == $_SESSION["nickname"]) {
-                    $target;
-                    switch ($whosTour) {
-                        case "0":
-                            $target = 1;
-                        break;
-                        case "1":
-                            $target = 0;
-                        break;
-                    }
-                    $hit = false;
-                    $ships[$target] = explode(";",$ships[$target]);
-                    if ($ships[$target][$cord] == "1") {
-                        $ships[$target][$cord] = 3;
-                        $hit = true;
-                    } else if ($ships[$target][$cord] == "0") {
-                        $ships[$target][$cord] = 2;
-                    }
-                    $ships[$target] = implode(";",$ships[$target]);
-                    $dateNow = time();
-                    if (!$hit) {
-                        if ($whosTour == "0") {
-                            $whosTour = "1";
-                        } else {
-                            $whosTour = "0";
+                if ($status == "3") {
+                    $playersNicks = explode(";",$playersNicks);
+                    if ($playersNicks[$whosTour] == $_SESSION["nickname"]) {
+                        $target;
+                        switch ($whosTour) {
+                            case "0":
+                                $target = 1;
+                            break;
+                            case "1":
+                                $target = 0;
+                            break;
+                        }
+                        $hit = false;
+                        $ships[$target] = explode(";",$ships[$target]);
+                        if ($ships[$target][$cord] == "1") {
+                            $ships[$target][$cord] = 3;
+                            $hit = true;
+                        } else if ($ships[$target][$cord] == "0") {
+                            $ships[$target][$cord] = 2;
+                        }
+                        $gameEnd = true;
+                        foreach ($ships as $key) {
+                            if ($key == "1") {
+                                $gameEnd = false;
+                                break;
+                            }
+                        }
+                        $ships[$target] = implode(";",$ships[$target]);
+                        $dateNow = time();
+                        if (!$hit) {
+                            if ($whosTour == "0") {
+                                $whosTour = "1";
+                            } else {
+                                $whosTour = "0";
+                            }
+                        }
+                        $sql = "UPDATE games SET shipsP1 = ?, shipsP2 = ?, lastAction = ?, whosTour = ? WHERE name = ?";
+                        $stmt = $connection -> prepare($sql);
+                        $stmt -> bind_param("ssdss", $ships[0],$ships[1],$dateNow,$whosTour,$_SESSION['serverName']);
+                        $stmt -> execute();
+                        $stmt-> close();
+                        if ($gameEnd) {
+                            $winMess = "Wygrał gracz ".$playersNicks[intval($whosTour)];
+                            $sql = "UPDATE games SET status = 4, gameEnd = ? WHERE name = ?";
+                            $stmt = $connection -> prepare($sql);
+                            $stmt -> bind_param("ss", $winMess, $_SESSION['serverName']);
+                            $stmt -> execute();
+                            $stmt -> close();
                         }
                     }
-                    $sql = "UPDATE games SET shipsP1 = ?, shipsP2 = ?, lastAction = ?, whosTour = ? WHERE name = ?";
-                    $stmt = $connection -> prepare($sql);
-                    $stmt -> bind_param("ssdss", $ships[0],$ships[1],$dateNow,$whosTour,$_SESSION['serverName']);
-                    $stmt -> execute();
-                    $stmt->close();
                 }
             }
         break;
