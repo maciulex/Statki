@@ -23,6 +23,7 @@ function engine() {
     xml.onreadystatechange = function () {
         if (this.status == 200 && this.readyState == 4) {
             let data = this.responseText.split(";;;");
+            console.log(data);
             if (data[10] == "4") {
                 window.location = "postGame.php";
             }

@@ -23,7 +23,7 @@
     $stmt -> store_result();
     $stmt -> bind_result($inGame);
     $stmt -> fetch();
-    if (empty($inGame) || !isset($inGame) || intval($inGame) == 0 || $inGame == "") {
+    if ((empty($inGame) || !isset($inGame) || intval($inGame) == 0 || $inGame == "") && $page != "endGame") {
         $_SESSION['error'] = "Error";
         header('Location: ../mainLogged/index.php');
         $stmt -> close();

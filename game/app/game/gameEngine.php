@@ -76,10 +76,9 @@
                             $ships[$target][$cord] = 2;
                         }
                         $gameEnd = true;
-                        foreach ($ships as $key) {
+                        foreach ($ships[$target] as $key) {
                             if ($key == "1") {
                                 $gameEnd = false;
-                                break;
                             }
                         }
                         $ships[$target] = implode(";",$ships[$target]);
@@ -101,6 +100,13 @@
                             $sql = "UPDATE games SET status = 4, gameEnd = ? WHERE name = ?";
                             $stmt = $connection -> prepare($sql);
                             $stmt -> bind_param("ss", $winMess, $_SESSION['serverName']);
+                            $stmt -> execute();
+                            $stmt -> close();
+                            $sql = "UPDATE users SET inGame = 0 WHERE nickname = ?";
+                            $stmt = $connection -> prepare($sql);
+                            $stmt -> bind_param("s", $playersNicks[0]);
+                            $stmt -> execute();
+                            $stmt -> bind_param("s", $playersNicks[1]);
                             $stmt -> execute();
                             $stmt -> close();
                         }
