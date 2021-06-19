@@ -39,7 +39,7 @@ function loadGames() {
                     <div class="gameListGameBase gameListGamePassword">
                         <div>${getIco(localData[1])}</div>
                     </div>
-                    <div class="gameListGameBase gameListGameJoin" onclick='window.location = "app/gameJoin.php?name=${localData[0]}"'>
+                    <div class="gameListGameBase gameListGameJoin" onclick='gameJoin("${localData[0]}", "${localData[1]}")'>
                         <div>${getJoinText(localData[2])}</div>
                     </div>
                 </div>`;
@@ -88,4 +88,11 @@ function loadGames() {
         }
     }
     goXML();
+}
+function gameJoin(name, password) {
+    if (password == "1") {
+        window.location = "app/gameJoin.php?name="+name;
+    } else {
+        window.location = "app/gameJoin.php?name="+name+"&password="+prompt("Podaj hasło");
+    }
 }

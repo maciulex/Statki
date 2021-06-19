@@ -17,7 +17,7 @@
     $passwordBool = false;
     $password;
     if (isset($_POST['passwordCh'])) {
-        $password = $_POST['passwordCh'];
+        $password = $_POST['password'];
         if ($password != trim($password,";")) {
             $_SESSION['error'] = "Nie dozwolony znak: ;";
             header("Location: ../gameCreate.php");
