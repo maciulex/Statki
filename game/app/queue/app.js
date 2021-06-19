@@ -16,7 +16,6 @@ function queueEngine(arg) {
             if (this.readyState == 4 && this.status == 200) {
                 if (this.responseText[0] == "e" && this.responseText[4] == "r") {
                     alert("wystąpił błąd ");
-                    console.log(this.responseText);
                     return;
                 }
                 switch (arg) {
@@ -180,22 +179,31 @@ function buildEngine(arg) {
         break;
     }
 }
-
+let lastCords = [0,0];
 document.addEventListener("mousemove", function (ev) {
+    let clientX = ev.clientX;
+    let clientY = ev.clientY;
+    if (clientX != undefined) {
+        lastCords[0] = clientX;
+        lastCords[1] = clientY;
+    } else {
+        clientX = lastCords[0];
+        clientY = lastCords[1];
+    }
     if(Date.now() - lastMove > 15) {
         if (track[0]) {
             let table = document.querySelector("#busyShips");
-            document.querySelector("#pickedUp").style.top = (ev.clientY-(.5*width))+'px';
-            document.querySelector("#pickedUp").style.left = (ev.clientX-((.5*track[4])*width))+'px'; 
+            document.querySelector("#pickedUp").style.top = (clientY-(.5*width))+'px';
+            document.querySelector("#pickedUp").style.left = (clientX-((.5*track[4])*width))+'px'; 
             var reset = document.querySelectorAll(".whileShip");
             if (reset.length != 0) {
                 for (let i = 0; i < reset.length; i++) {
                     reset[i].classList.remove("whileShip");
                 }
             }
-            if ((elementB[1] < ev.clientX && elementB[2] < ev.clientY) && (elementB[1]+elementB[3] > ev.clientX && elementB[2]+elementB[4] > ev.clientY)) {
-                let row = Math.floor((ev.clientY-elementB[2])/width);
-                let cell = Math.floor((ev.clientX-elementB[1])/width);
+            if ((elementB[1] < clientX && elementB[2] < clientY) && (elementB[1]+elementB[3] > clientX && elementB[2]+elementB[4] > clientY)) {
+                let row = Math.floor((clientY-elementB[2])/width);
+                let cell = Math.floor((clientX-elementB[1])/width);
                 if (track[3] == 0) {
                     var validate = true;
                     for (let i = Math.round(-1*(track[4]/2)); i < Math.round(track[4]/2); i++) {
@@ -249,6 +257,8 @@ document.addEventListener("mousemove", function (ev) {
                         break;
                     }
                 }
+            } else {
+                document.querySelector("#pickedUp").classList.remove("displayOff");
             }
         } 
         lastMove = Date.now();
@@ -257,12 +267,15 @@ document.addEventListener("mousemove", function (ev) {
 document.addEventListener("keypress", function (ev) {
     if (ev.keyCode == 114 && track[0]) {    
         let place = document.querySelector("#pickedUp");
+        var event = new Event("mousemove");
         if (track[3] == 0) {
             place.classList.add("rotation90");
             track[3] = 1;
+            document.dispatchEvent(event);
         } else {
             place.classList.remove("rotation90");
             track[3] = 0;
+            document.dispatchEvent(event);
         }
     }
 });
@@ -301,6 +314,8 @@ document.addEventListener("click", function (ev) {
         lastMove = 0;
         document.querySelector("#pickedUp").innerHTML = "";
     }
+    var event = new Event("mousemove");
+    document.dispatchEvent(event);    
 });
 function deleteShip(arg) {
     let shipPlaced = document.querySelectorAll(".shipNo"+arg);
@@ -355,7 +370,6 @@ function shipsValidation() {
         shipS.push(mystr);
     }
     shipS = shipS.join(";;;");
-    console.log(shipS);
     var xml = new XMLHttpRequest;
     xml.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
@@ -370,7 +384,6 @@ function getReadyPlayers() {
     let xml = new XMLHttpRequest;
     xml.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
-            console.log(this.responseText);
             document.querySelector(".gameReturnBlock").innerHTML = "Gotowych graczy: "+this.responseText+"/2";
             if (this.responseText == "2") {
                 window.location = "battleField.php";
