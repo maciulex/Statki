@@ -1,5 +1,5 @@
 var playersNumber = 0;
-
+var data = [undefined,undefined,undefined];
 
 function postGameEngine() {
     function xmlEngine() {
@@ -8,7 +8,6 @@ function postGameEngine() {
             if (this.readyState == 4 && this.status == 200) {
                 if (this.responseText[0] == "e" && this.responseText[4] == "r") {
                     alert("wystąpił błąd ");
-                    console.log(this.responseText);
                     return;
                 }
                 dealData(this.responseText);
@@ -20,58 +19,60 @@ function postGameEngine() {
     }
     function dealData(arg) {
         arg = arg.split(";;;");
-        gameLoad(arg[0]);
-        playerLoad(arg[1]);
+        data[0] = arg[0].split(";");
+        data[1] = arg[1].split(";;");
+        data[2] = arg[2].split(";;");
+
+        loadPages();
+        //data[2] = arg[0];
+        //gameLoad(arg[0]);
+        //playerLoad(arg[1]);
     }
-    function playerLoad(data) {
-        let iStillHERE = false;
-        let place = document.querySelector(".mainQueue main");
-        let kick = "";
-        place.innerHTML = "";
-        data = data.split(";;");
-        playersNumber = data.length-1;
-        for (var i = 0; i < data.length-1; i++) {
-            let localData = data[i].split(";");
-            if (localData[6] == "false") {
-                var avatar = "def.jpg"; 
-            } else {
-                var avatar = localData[6]; 
-            }
-            let raw = `
-                <div class="player">
-                    <section class="header">
-                        <img src="../photos/avatars/${avatar}">
-                        <section>
-                            <h1>${localData[1]} <br> ${kick}</h1>
-                            <div>
-                                Opis gracza: ${localData[2]}
-                            </div>
-                        </section>
-                    </section>
-                    <section class="stats">
-                        <div>Rozegrane: <br> ${localData[3]}</div><div>Wygrane: <br> ${localData[4]}</div><div>Przegrane: <br> ${localData[5]}</div>
-                    </section>
-                </div>
-            `;
-            place.innerHTML += raw; 
+    xmlEngine();
+}
+
+
+function loadPages() {
+    let place = document.querySelector(".mainQueue main");
+    place.innerHTML = "";
+    function playerLoad(arg) {
+        let localData = arg.split(";");
+        if (localData[6] == "false") {
+            var avatar = "def.jpg"; 
+        } else {
+            var avatar = localData[6]; 
         }
+        let raw = `
+            <div class="player">
+                <section class="header">
+                    <img src="../photos/avatars/${avatar}">
+                    <section>
+                        <h1>${localData[1]}</h1>
+                        <div>
+                            Opis gracza: ${localData[2]}
+                        </div>
+                    </section>
+                </section>
+                <section class="stats">
+                    <div>Rozegrane: <br> ${localData[3]}</div><div>Wygrane: <br> ${localData[4]}</div><div>Przegrane: <br> ${localData[5]}</div>
+                </section>
+            </div>
+        `;
+        place.innerHTML += raw; 
     }
-    function gameLoad(data) {
-        data = data.split(";");
+    function gameLoad() {
         let place = document.querySelector(".mainQueue aside");
         place.innerHTML = `
             <br><br>
-            Nazwa gry: ${data[0]}<br>
-            Prywatność: ${getPrivacy(data[2])}<br>
-            Status: ${getStatus(data[1])}<br>
-            Graczy: ${data[3]}/2<br>
-            Host: ${data[4]}<br>
-            <div class="hostOption"></div>
+            Nazwa gry: ${data[0][0]}<br>
+            Prywatność: ${getPrivacy(data[0][2])}<br>
+            Status: ${getStatus(data[0][1])}<br>
+            Graczy: ${data[0][3]}/2<br>
+            Host: ${data[0][4]}<br>
+            ${data[0][5]}<br>
+            <div class="buttonForChange"></div>
         `;
         function getStatus(arg) {
-            if (playersNumber == 2 && arg == '1') {
-                return "Oczekiwanie na rozpoczęcie przez hosta";
-            }
             switch (arg) {
                 case '1':
                     return "Nie rozpoczęta";
@@ -92,5 +93,61 @@ function postGameEngine() {
             }
         }
     }
-    xmlEngine();
+    for (let i = 0; i < 2; i++) {
+        playerLoad(data[1][i]);
+    }
+    gameLoad();
+    document.querySelector(".buttonForChange").innerHTML = `<button onclick="changeCard(1)">Pokaż planszę</button>`;
+}
+function drawBoards() {
+    let place = document.querySelector("main");
+    document.querySelector("main").innerHTML = "";
+    for (let x = 0; x < 2; x++) {
+        let playerNick = data[1][x].split(";");
+        playerNick = playerNick[1];
+        let value = data[2][x].split(";");
+        let raw = `<table cellspacing="0"><tbody>`;
+        raw += `<tr><td colspan="10" class="headerTable">${playerNick}</td></tr>`;
+        for (let i = 0; i < 100; i++) {
+            if (i%10 == 0) {
+                raw += '</tr><tr>';
+            }
+            switch (value[i]){
+                case "0":
+                    raw += `<td class="tdElement"></td>`;
+                break;
+                case "1":
+                    raw += `<td class="tdElement" style="background-color: black"></td>`;
+                break;
+                case "2":
+                    raw += `<td class="tdElement" style="background-color: grey"></td>`;
+                break;
+                case "3":
+                    raw += `<td class="tdElement" style="background-color: red"></td>`;
+                break;
+            }   
+
+        }
+        raw += "</tbody></table>";
+        document.querySelector("main").innerHTML += raw;
+        let width = document.querySelector(".headerTable").clientWidth/10;
+        let elements = document.querySelectorAll(".tdElement");
+        for (let i = 0; i < elements.length; i++) {
+            elements[i].style.height = width+"px";
+        }
+
+    }
+}
+function changeCard(arg) {
+        let buttonPlace = document.querySelector(".buttonForChange");
+    switch (arg) {
+        case 0:
+            loadPages();
+            buttonPlace.innerHTML = `<button onclick="changeCard(1)">Pokaż planszę</button>`;
+        break;
+        case 1:
+            drawBoards();
+            buttonPlace.innerHTML = `<button onclick="changeCard(0)">Pokaż graczy</button>`;
+        break;
+    }
 }

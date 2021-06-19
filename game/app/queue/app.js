@@ -313,6 +313,7 @@ document.addEventListener("click", function (ev) {
         elementB = [null,null,null,null,null];
         lastMove = 0;
         document.querySelector("#pickedUp").innerHTML = "";
+        document.querySelector("#pickedUp").classList.remove("rotation90");
     }
     var event = new Event("mousemove");
     document.dispatchEvent(event);    
