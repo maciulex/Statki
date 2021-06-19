@@ -96,17 +96,25 @@
                         $stmt -> execute();
                         $stmt-> close();
                         if ($gameEnd) {
+                            $stats = array(0,0);
                             $winMess = "Wygrał gracz ".$playersNicks[intval($whosTour)];
+                            if ($whosTour == "0") {
+                                $stats[0] = 1;
+                                $stats[1] = 0;
+                            } else {
+                                $stats[0] = 0;
+                                $stats[1] = 1;
+                            }
                             $sql = "UPDATE games SET status = 4, gameEnd = ? WHERE name = ?";
                             $stmt = $connection -> prepare($sql);
                             $stmt -> bind_param("ss", $winMess, $_SESSION['serverName']);
                             $stmt -> execute();
                             $stmt -> close();
-                            $sql = "UPDATE users SET inGame = 0 WHERE nickname = ?";
+                            $sql = "UPDATE users SET inGame = 0, Sgames = Sgames + 1, SgamesWin = SgamesWin + ?, SgamesLose = SgamesLose + ? WHERE nickname = ?";
                             $stmt = $connection -> prepare($sql);
-                            $stmt -> bind_param("s", $playersNicks[0]);
+                            $stmt -> bind_param("iis", $stats[0], $stats[1], $playersNicks[0]);
                             $stmt -> execute();
-                            $stmt -> bind_param("s", $playersNicks[1]);
+                            $stmt -> bind_param("iis", $stats[1], $stats[0], $playersNicks[1]);
                             $stmt -> execute();
                             $stmt -> close();
                         }

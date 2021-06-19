@@ -23,9 +23,8 @@ function engine() {
     xml.onreadystatechange = function () {
         if (this.status == 200 && this.readyState == 4) {
             let data = this.responseText.split(";;;");
-            console.log(data);
             if (data[10] == "4") {
-                window.location = "postGame.php";
+                window.location = "postGame.php?serverName="+server;
             }
             loadPlayers(data[5], data[6], data[8]);
             loadAside(data[0], data[1], data[2], data[3], data[4],data[9]);
@@ -36,7 +35,6 @@ function engine() {
     function loadPlayers(p1, p2, me) {
         basicLoad();
         me = parseInt(me);
-        console.log(me);
         let my = document.querySelector(".myFleet tbody");
         let enemy = document.querySelector(".enemyFleet tbody");
         let players = [p1.split(";"),p2.split(";")];
@@ -76,6 +74,14 @@ function loadAside(serverName, playersNicks, whosTour, timeout, lastAction, time
     gameInfo.innerHTML += "<div>Gracze: "+playersNicks[0]+", "+playersNicks[1]+"</div>";
     gameInfo.innerHTML += "<div>Tura gracza: "+playersNicks[parseInt(whosTour)]+"</div>";
     gameInfo.innerHTML += "<div>Ostatni ruch: "+timeLeft+"s</div>";
+    let infoP = document.querySelector(".blockInfo");
+    if (myNick == playersNicks[parseInt(whosTour)]) {
+        infoP.style.backgroundColor = "green";
+        infoP.innerHTML = "Twoja tura";
+    } else {
+        infoP.style.backgroundColor = "red";
+        infoP.innerHTML = "Poczekaj"; 
+    }
     if (timeLeft > 300) {
         gameInfo.innerHTML += "<button>Zgłoś przedwczesne zakończenie gry</button>";
     }
@@ -87,6 +93,7 @@ function shoot(where) {
         xml.onreadystatechange = function () {
             if (this.status == 200 && this.readyState == 4) {
                 console.log(this.responseText);
+                engine();
             }
         }
         xml.open("GET", "app/game/gameEngine.php?action=1&cord="+where, true);
@@ -94,4 +101,4 @@ function shoot(where) {
     }
 }
 engine();
-let interval = setInterval(engine, 1000);
+let interval = setInterval(engine, 800);

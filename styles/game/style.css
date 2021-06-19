@@ -213,7 +213,7 @@ body .displayOff {
   display: none;
 }
 
-body .gameReturnBlock {
+body .gameReturnBlock, body .blockInfo {
   width: 40%;
   height: 4vh;
   display: inline-block;
@@ -225,7 +225,7 @@ body .gameReturnBlock {
   text-align: center;
 }
 
-body .gameReturnBlock div {
+body .gameReturnBlock div, body .blockInfo div {
   display: inline-block;
 }
 

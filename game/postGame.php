@@ -25,6 +25,10 @@
         <title>Statki</title>
         <meta charset="utf-8">
         <link href="../styles/game/style.css" rel="stylesheet">
+        <script>
+            let server = "<?php echo $_GET['serverName'];?>";
+        </script>
+        <script src="app/postGame/app.js"></script>
     </head>
     <body>
         <header class="noSelectText">
@@ -34,13 +38,16 @@
             <a href="../mainLogged/profil.php" class="right"><button>Profil</button></a>
             <a href="../mainLogged/index.php" class="right" style="width:75px"><button>Lista gier</button></a>
         </header>    
-        <section class="batteField noSelectText">
-            <aside>
+        <section class="mainQueue noSelectText">
+            <aside class="noSelect">
 
             </aside>
+            <main>
 
+            </main>
         </section>
         <script>
+            postGameEngine();
         </script>
     </body>
     <div id="pickedUp"></div>

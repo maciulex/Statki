@@ -44,6 +44,11 @@
         $stmt -> bind_result($password, $privacy, $status, $players, $playersNicks, $id);
         $stmt -> fetch();
         $stmt -> close();
+        if (intval($status) == 4) {
+            header('Location: ../../game/postGame.php?serverName='.$_GET['name']);
+            mysqli_close($connection);
+            exit();
+        }
         if ($rows == 0) {
             mysqli_close($connection);
             $_SESSION['error'] = "Coś się nie udało! 3";
