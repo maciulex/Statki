@@ -5,8 +5,14 @@ $backgroundColorFour-Dark: #7D869C;
 $gameBackground-Dark: #4F5D75;
 $borderColor-Dark: #40434E;
 
+$backgroundColor-Light: #f5cac5;
+$backgroundColorSecond-Light: #ffddd2;
+$backgroundColorThird-Light: #fcd5cf;
+$backgroundColorFour-Light: #ffe5d9;
+$borderColor-Light: #f8cfc8;
+$gameBackground-Light: #ffaea8;
+
 body {
-    background-color: $backgroundColor-Dark;
     padding: 0;
     margin: 0;
     .noDisplay {
@@ -38,7 +44,6 @@ body {
     header {
         width: 100vw;
         height: 5vh;
-        background-color: $backgroundColorSecond-Dark;
         a {
             margin-left: 15px;
             width: 60px;
@@ -50,7 +55,6 @@ body {
                 cursor: pointer;
                 border-radius: 5px;
                 border: none;
-                background-color: $backgroundColorFour-Dark;
                 color: whitesmoke;
                 padding: 5px;
             }
@@ -63,7 +67,6 @@ body {
             display: inline-block;
             width: 20%;
             height: 100%;
-            background-color: $backgroundColorThird-Dark;
             float: left;
             text-align: center;
         }
@@ -79,7 +82,6 @@ body {
                 width: 100%;
                 display: grid;
                 .gameListGame {
-                    background-color: $gameBackground-Dark;
                     justify-self: center;     
                     height: 50px;
                     width: 90%;
@@ -114,14 +116,12 @@ body {
                     }
                     .gameListGameJoin {
                         width: calc(20% - 2px);
-                        border-left: 2px dashed $borderColor-Dark;
                         cursor: pointer;
                         div {
                             font-size: 1.25em;
                         }
                     }
                     .gameListGameJoin:hover {
-                        background-color: $backgroundColorThird-Dark;
                     }
                 }
             }
@@ -138,14 +138,11 @@ body {
             align-self: center;
             width: 50vw;
             height: 70vh;
-            background-color: $gameBackground-Dark; 
-            border: 1px solid $borderColor-Dark;
             border-radius: 25px;
             h1 {
                 text-align: center;
             }
             hr {
-                border-color: $borderColor-Dark;
                 margin-left: 15%;
                 margin-right: 15%;
             }
@@ -163,19 +160,14 @@ body {
                 .radio {
                     height: 80px;
                 }
-                section:hover {
-                    background-color: $backgroundColorThird-Dark;
-                }
                 input {
                     float: right;
                     border-radius: 2px;
-                    background-color: $backgroundColorFour-Dark;
                     border: none;
                     box-shadow: none;
                 }
                 button {
                     border-radius: 2px;
-                    background-color: $backgroundColorFour-Dark;
                     border: none;
                     box-shadow: none;
                     position: relative;
@@ -194,13 +186,11 @@ body {
             justify-self: center;
             width: 50%;
             height: 80%;
-            background-color: $backgroundColorSecond-Dark;
             border-radius: 25px;
             h1 {
                 text-align: center;
             }
             hr {
-                border-color: $borderColor-Dark;
                 margin: 0;
             }
             img {
@@ -215,3 +205,132 @@ body {
         } 
     }
 } 
+
+.dayMotive {
+    color: black !important;
+    background-color: $backgroundColor-Light;
+    header {
+        background-color: $backgroundColorSecond-Light;
+        a {
+            button {
+                background-color: $backgroundColorFour-Light;
+            }
+        }
+    }
+    section {
+        aside {
+            background-color: $backgroundColorThird-Light;
+        }
+        main {
+            .gameList {
+                .gameListGame {
+                    background-color: $gameBackground-Light;
+                    .gameListGameJoin {
+                        border-left: 2px dashed $borderColor-Light;
+                    }
+                    .gameListGameJoin:hover {
+                        background-color: $backgroundColorThird-Light;
+                    }
+                }
+            }
+        }
+    }
+    .gameCreateMainContainer {
+        .gameCreateMain {
+            background-color: $gameBackground-Light; 
+            border: 1px solid $borderColor-Light;
+            hr {
+                border-color: $borderColor-Light;
+            }
+            form {
+                section:hover {
+                    background-color: $backgroundColorThird-Light;
+                }
+                input {
+                    background-color: $backgroundColorFour-Light;
+                }
+                button {
+                    background-color: $backgroundColorFour-Light;
+                }
+            }
+        }
+    }
+    .mainProfil {
+        main {
+            background-color: $backgroundColorSecond-Light;
+            hr {
+                border-color: $borderColor-Light;
+            }
+        } 
+    }
+} 
+
+.nightMotive {
+    background-color: $backgroundColor-Dark;
+    header {
+        background-color: $backgroundColorSecond-Dark;
+        a {
+            button {
+                background-color: $backgroundColorFour-Dark;
+            }
+        }
+    }
+    section {
+        aside {
+            background-color: $backgroundColorThird-Dark;
+        }
+        main {
+            .gameList {
+                .gameListGame {
+                    background-color: $gameBackground-Dark;
+                    .gameListGameJoin {
+                        border-left: 2px dashed $borderColor-Dark;
+                    }
+                    .gameListGameJoin:hover {
+                        background-color: $backgroundColorThird-Dark;
+                    }
+                }
+            }
+        }
+    }
+    .gameCreateMainContainer {
+        .gameCreateMain {
+            background-color: $gameBackground-Dark; 
+            border: 1px solid $borderColor-Dark;
+            hr {
+                border-color: $borderColor-Dark;
+            }
+            form {
+                section:hover {
+                    background-color: $backgroundColorThird-Dark;
+                }
+                input {
+                    background-color: $backgroundColorFour-Dark;
+                }
+                button {
+                    background-color: $backgroundColorFour-Dark;
+                }
+            }
+        }
+    }
+    .mainProfil {
+        main {
+            background-color: $backgroundColorSecond-Dark;
+            hr {
+                border-color: $borderColor-Dark;
+            }
+        } 
+    }
+} 
+.changeMotive {
+    width: 50px;
+    height: 50px;
+    position: absolute;
+    top: calc(100% - 75px);
+    left:calc(100% - 75px);
+    background-color: brown;
+    padding: 4px;
+    border-radius: 50%;
+    border: 1px solid black;
+    cursor: pointer;
+}

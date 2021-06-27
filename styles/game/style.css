@@ -7,7 +7,6 @@
 }
 
 body {
-  background-color: #27233A;
   padding: 0;
   margin: 0;
 }
@@ -19,7 +18,6 @@ body .right {
 body header {
   width: 100vw;
   height: 5vh;
-  background-color: #505168;
 }
 
 body header a {
@@ -36,7 +34,6 @@ body header a button {
   cursor: pointer;
   border-radius: 5px;
   border: none;
-  background-color: #7D869C;
   color: whitesmoke;
   padding: 5px;
 }
@@ -50,7 +47,6 @@ body .mainQueue aside {
   display: inline-block;
   width: 20%;
   height: 100%;
-  background-color: #585c6b;
   float: right;
   text-align: center;
 }
@@ -74,7 +70,6 @@ body .mainQueue .player {
       -ms-grid-row-align: center;
       align-self: center;
   border-radius: 35px;
-  background-color: #505168;
   overflow: hidden;
 }
 
@@ -146,10 +141,6 @@ body .buildFleet #freeShips .ship {
   border: 1px solid black;
 }
 
-body .buildFleet #busyShips {
-  background-color: #7D869C;
-}
-
 body .buildFleet table {
   -ms-grid-column-align: center;
       justify-self: center;
@@ -175,11 +166,6 @@ body .asideBuild {
   position: fixed;
   height: 100vh;
   width: 15vw;
-  background-color: #7D869C;
-}
-
-body .pickedUp {
-  background-color: #7D869C !important;
 }
 
 body #pickedUp {
@@ -246,7 +232,6 @@ body .batteField table td {
   margin: 0;
   padding: 0;
   border: 1px solid black;
-  background-color: #7D869C;
 }
 
 body .batteField table .headerTable {
@@ -254,7 +239,113 @@ body .batteField table .headerTable {
   font-size: 150%;
 }
 
-body .batteField aside {
+.nightMotive {
+  background-color: #27233A;
+}
+
+.nightMotive header {
+  background-color: #505168;
+}
+
+.nightMotive header a button {
   background-color: #7D869C;
+}
+
+.nightMotive .mainQueue aside {
+  background-color: #585c6b;
+}
+
+.nightMotive .mainQueue .player {
+  background-color: #505168;
+}
+
+.nightMotive .buildFleet #busyShips {
+  background-color: #7D869C;
+}
+
+.nightMotive .buildFleet table td {
+  border: 1px solid black;
+}
+
+.nightMotive .buildFleet table .ship {
+  background-color: white;
+}
+
+.nightMotive .asideBuild {
+  background-color: #7D869C;
+}
+
+.nightMotive .pickedUp {
+  background-color: #7D869C !important;
+}
+
+.nightMotive .batteField table td {
+  background-color: #7D869C;
+}
+
+.nightMotive .batteField aside {
+  background-color: #7D869C;
+}
+
+.dayMotive {
+  color: black;
+  background-color: #f5cac5;
+}
+
+.dayMotive header {
+  background-color: #ffddd2;
+}
+
+.dayMotive header a button {
+  background-color: #ffe5d9;
+}
+
+.dayMotive .mainQueue aside {
+  background-color: #fcd5cf;
+}
+
+.dayMotive .mainQueue .player {
+  background-color: #ffddd2;
+}
+
+.dayMotive .buildFleet #busyShips {
+  background-color: #ffe5d9;
+}
+
+.dayMotive .buildFleet table td {
+  border: 1px solid black;
+}
+
+.dayMotive .buildFleet table .ship {
+  background-color: white;
+}
+
+.dayMotive .asideBuild {
+  background-color: #ffe5d9;
+}
+
+.dayMotive .pickedUp {
+  background-color: #ffe5d9 !important;
+}
+
+.dayMotive .batteField table td {
+  background-color: #ffe5d9;
+}
+
+.dayMotive .batteField aside {
+  background-color: #ffe5d9;
+}
+
+.changeMotive {
+  width: 50px;
+  height: 50px;
+  position: absolute;
+  top: calc(100% - 75px);
+  left: calc(100% - 75px);
+  background-color: brown;
+  padding: 4px;
+  border-radius: 50%;
+  border: 1px solid black;
+  cursor: pointer;
 }
 /*# sourceMappingURL=style.css.map */

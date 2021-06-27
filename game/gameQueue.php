@@ -43,6 +43,8 @@
         <meta charset="utf-8">
         <link href="../styles/game/style.css" rel="stylesheet">
         <script src="app/queue/app.js"></script>
+        <script>var motiveAccess = <?php  echo ((isset($_COOKIE['motive'])) ? $_COOKIE['motive'] : 0); ?>;</script>
+        <script src="../mainApp.js"></script>
     </head>
     <body>
         <header class="noSelectText">
@@ -58,9 +60,13 @@
 
             </main>
         </section>
+        <div class="changeMotive" onclick="changeMotive()"> 
+            <img src="photos/ico/sun-solid.svg">
+        </div>
         <script>
             queueEngine(0);
             var intervals = setInterval(function(){queueEngine(0);}, 1000);
+            setMotive();
         </script>
     </body>
 </html>

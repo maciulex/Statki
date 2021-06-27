@@ -25,6 +25,8 @@
         <title>Statki</title>
         <meta charset="utf-8">
         <link href="../styles/game/style.css" rel="stylesheet">
+        <script>var motiveAccess = <?php  echo ((isset($_COOKIE['motive'])) ? $_COOKIE['motive'] : 0); ?>;</script>
+        <script src="../mainApp.js"></script>
         <script>
             let server = "<?php echo $_GET['serverName'];?>";
         </script>
@@ -46,8 +48,12 @@
 
             </main>
         </section>
+        <div class="changeMotive" onclick="changeMotive()"> 
+            <img src="photos/ico/sun-solid.svg">
+        </div>
         <script>
             postGameEngine();
+            setMotive();
         </script>
     </body>
     <div id="pickedUp"></div>

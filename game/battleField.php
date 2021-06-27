@@ -28,8 +28,9 @@
         <script>
             var server = "<?php echo $_SESSION['serverName'];?>";
             var myNick = "<?php echo $_SESSION['nickname'];?>";
+            var motiveAccess = <?php  echo ((isset($_COOKIE['motive'])) ? $_COOKIE['motive'] : 0); ?>;
         </script>
-
+        <script src="../mainApp.js"></script>
         <script src="app/game/app.js"></script>
     </head>
     <body>
@@ -63,8 +64,12 @@
                 </table>
             </section>
         </section>
+        <div class="changeMotive" onclick="changeMotive()"> 
+            <img src="photos/ico/sun-solid.svg">
+        </div>
         <script>
             basicLoad();
+            setMotive();
         </script>
     </body>
     <div id="pickedUp"></div>

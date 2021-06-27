@@ -1,5 +1,4 @@
 body {
-  background-color: #27233A;
   padding: 0;
   margin: 0;
 }
@@ -39,7 +38,6 @@ body .gameReturnBlock div {
 body header {
   width: 100vw;
   height: 5vh;
-  background-color: #505168;
 }
 
 body header a {
@@ -56,7 +54,6 @@ body header a button {
   cursor: pointer;
   border-radius: 5px;
   border: none;
-  background-color: #7D869C;
   color: whitesmoke;
   padding: 5px;
 }
@@ -70,7 +67,6 @@ body section aside {
   display: inline-block;
   width: 20%;
   height: 100%;
-  background-color: #585c6b;
   float: left;
   text-align: center;
 }
@@ -93,7 +89,6 @@ body section main .gameList {
 }
 
 body section main .gameList .gameListGame {
-  background-color: #4F5D75;
   -ms-grid-column-align: center;
       justify-self: center;
   height: 50px;
@@ -135,16 +130,11 @@ body section main .gameList .gameListGame .gameListGamePassword img {
 
 body section main .gameList .gameListGame .gameListGameJoin {
   width: calc(20% - 2px);
-  border-left: 2px dashed #40434E;
   cursor: pointer;
 }
 
 body section main .gameList .gameListGame .gameListGameJoin div {
   font-size: 1.25em;
-}
-
-body section main .gameList .gameListGame .gameListGameJoin:hover {
-  background-color: #585c6b;
 }
 
 body .gameCreateMainContainer {
@@ -167,8 +157,6 @@ body .gameCreateMainContainer .gameCreateMain {
       align-self: center;
   width: 50vw;
   height: 70vh;
-  background-color: #4F5D75;
-  border: 1px solid #40434E;
   border-radius: 25px;
 }
 
@@ -177,7 +165,6 @@ body .gameCreateMainContainer .gameCreateMain h1 {
 }
 
 body .gameCreateMainContainer .gameCreateMain hr {
-  border-color: #40434E;
   margin-left: 15%;
   margin-right: 15%;
 }
@@ -201,14 +188,9 @@ body .gameCreateMainContainer .gameCreateMain form .radio {
   height: 80px;
 }
 
-body .gameCreateMainContainer .gameCreateMain form section:hover {
-  background-color: #585c6b;
-}
-
 body .gameCreateMainContainer .gameCreateMain form input {
   float: right;
   border-radius: 2px;
-  background-color: #7D869C;
   border: none;
   -webkit-box-shadow: none;
           box-shadow: none;
@@ -216,7 +198,6 @@ body .gameCreateMainContainer .gameCreateMain form input {
 
 body .gameCreateMainContainer .gameCreateMain form button {
   border-radius: 2px;
-  background-color: #7D869C;
   border: none;
   -webkit-box-shadow: none;
           box-shadow: none;
@@ -241,7 +222,6 @@ body .mainProfil main {
       justify-self: center;
   width: 50%;
   height: 80%;
-  background-color: #505168;
   border-radius: 25px;
 }
 
@@ -250,7 +230,6 @@ body .mainProfil main h1 {
 }
 
 body .mainProfil main hr {
-  border-color: #40434E;
   margin: 0;
 }
 
@@ -263,5 +242,133 @@ body .mainProfil main img {
 
 body .mainProfil main form {
   text-align: center;
+}
+
+.dayMotive {
+  color: black !important;
+  background-color: #f5cac5;
+}
+
+.dayMotive header {
+  background-color: #ffddd2;
+}
+
+.dayMotive header a button {
+  background-color: #ffe5d9;
+}
+
+.dayMotive section aside {
+  background-color: #fcd5cf;
+}
+
+.dayMotive section main .gameList .gameListGame {
+  background-color: #ffaea8;
+}
+
+.dayMotive section main .gameList .gameListGame .gameListGameJoin {
+  border-left: 2px dashed #f8cfc8;
+}
+
+.dayMotive section main .gameList .gameListGame .gameListGameJoin:hover {
+  background-color: #fcd5cf;
+}
+
+.dayMotive .gameCreateMainContainer .gameCreateMain {
+  background-color: #ffaea8;
+  border: 1px solid #f8cfc8;
+}
+
+.dayMotive .gameCreateMainContainer .gameCreateMain hr {
+  border-color: #f8cfc8;
+}
+
+.dayMotive .gameCreateMainContainer .gameCreateMain form section:hover {
+  background-color: #fcd5cf;
+}
+
+.dayMotive .gameCreateMainContainer .gameCreateMain form input {
+  background-color: #ffe5d9;
+}
+
+.dayMotive .gameCreateMainContainer .gameCreateMain form button {
+  background-color: #ffe5d9;
+}
+
+.dayMotive .mainProfil main {
+  background-color: #ffddd2;
+}
+
+.dayMotive .mainProfil main hr {
+  border-color: #f8cfc8;
+}
+
+.nightMotive {
+  background-color: #27233A;
+}
+
+.nightMotive header {
+  background-color: #505168;
+}
+
+.nightMotive header a button {
+  background-color: #7D869C;
+}
+
+.nightMotive section aside {
+  background-color: #585c6b;
+}
+
+.nightMotive section main .gameList .gameListGame {
+  background-color: #4F5D75;
+}
+
+.nightMotive section main .gameList .gameListGame .gameListGameJoin {
+  border-left: 2px dashed #40434E;
+}
+
+.nightMotive section main .gameList .gameListGame .gameListGameJoin:hover {
+  background-color: #585c6b;
+}
+
+.nightMotive .gameCreateMainContainer .gameCreateMain {
+  background-color: #4F5D75;
+  border: 1px solid #40434E;
+}
+
+.nightMotive .gameCreateMainContainer .gameCreateMain hr {
+  border-color: #40434E;
+}
+
+.nightMotive .gameCreateMainContainer .gameCreateMain form section:hover {
+  background-color: #585c6b;
+}
+
+.nightMotive .gameCreateMainContainer .gameCreateMain form input {
+  background-color: #7D869C;
+}
+
+.nightMotive .gameCreateMainContainer .gameCreateMain form button {
+  background-color: #7D869C;
+}
+
+.nightMotive .mainProfil main {
+  background-color: #505168;
+}
+
+.nightMotive .mainProfil main hr {
+  border-color: #40434E;
+}
+
+.changeMotive {
+  width: 50px;
+  height: 50px;
+  position: absolute;
+  top: calc(100% - 75px);
+  left: calc(100% - 75px);
+  background-color: brown;
+  padding: 4px;
+  border-radius: 50%;
+  border: 1px solid black;
+  cursor: pointer;
 }
 /*# sourceMappingURL=style.css.map */

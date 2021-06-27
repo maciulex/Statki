@@ -10,6 +10,8 @@
     <head>
         <meta charset="utf-8">
         <link href="styles/index/index.css" rel="stylesheet">
+        <script>var motiveAccess = <?php  echo ((isset($_COOKIE['motive'])) ? $_COOKIE['motive'] : 0); ?>;</script>
+        <script src="mainApp.js"></script>
         <script src="user/indexManagment/app.js"></script>
     </head>
     <body>
@@ -26,12 +28,16 @@
                 </main>
             </div>
         </div>
+        <div class="changeMotive" onclick="changeMotive()"> 
+            <img src="../photos/ico/sun-solid.svg">
+        </div>
     </body>
     <script>
         let error = <?php echo ((isset($_SESSION['error'])) ? '"'.$_SESSION['error'].'"' : "undefined");?>;
         if (error != undefined) {
             alert(error);
         }
+        setMotive();
     </script>
 </html>
 <?php
