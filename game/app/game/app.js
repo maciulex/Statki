@@ -83,7 +83,7 @@ function loadAside(serverName, playersNicks, whosTour, timeout, lastAction, time
         infoP.innerHTML = "Poczekaj"; 
     }
     if (timeLeft > 300) {
-        gameInfo.innerHTML += "<button>Zgłoś przedwczesne zakończenie gry</button>";
+        gameInfo.innerHTML += `<button onclick="earlyEnd()">Zgłoś przedwczesne zakończenie gry</button>`;
     }
 }
 function shoot(where) {
@@ -99,6 +99,12 @@ function shoot(where) {
         xml.open("GET", "app/game/gameEngine.php?action=1&cord="+where, true);
         xml.send();
     }
+}
+
+function earlyEnd() {
+    let xml = new XMLHttpRequest;
+    xml.open("GET", "app/game/gameEngine.php?action=2", true);
+    xml.send();
 }
 engine();
 let interval = setInterval(engine, 800);

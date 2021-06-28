@@ -102,6 +102,9 @@
                 <div class="doVal">
 
                 </div>
+                <div class="fastEnd">
+
+                </div>
             </div>
         </aside>
         <section class="buildFleet noSelectText">

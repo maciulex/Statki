@@ -122,6 +122,45 @@
                 }
             }
         break;
+        case 2:
+            //early end >:
+            echo"WORKING";
+            $lastAction; $playersNicks;
+            $sql = "SELECT lastAction, playersNicks, status FROM games WHERE name = ?";
+            $stmt = $connection -> prepare($sql);
+            $stmt -> bind_param("s", $_SESSION["serverName"]);
+            $stmt -> execute();
+            $stmt -> store_result();
+            $rows = $stmt->num_rows;
+            $stmt -> bind_result($lastAction, $playersNicks, $status);
+            $stmt -> fetch();
+            $stmt -> close();
+            if (intval($lastAction)+300 < time() && $status != "4" && $status != "1") {
+                if ($rows == 1) {
+                    $playersNicks = explode(";", $playersNicks);
+                    foreach ($playersNicks as $key) {
+                        if ($key == $_SESSION["nickname"]) {
+                            $sql = "UPDATE users SET SgamesAbound = SgamesAbound + 1 WHERE nickname = ?";
+                            $stmt = $connection -> prepare($sql);
+                            $stmt -> bind_param("s", $key);
+                            $stmt -> execute();
+                            $stmt -> close();
+                        } else {
+                            $sql = "UPDATE users SET  SgamesEarlyEnd = SgamesEarlyEnd + 1 WHERE nickname = ?";
+                            $stmt = $connection -> prepare($sql);
+                            $stmt -> bind_param("s", $key);
+                            $stmt -> execute();
+                            $stmt -> close();
+                        }
+                    }
+                    $sql = 'UPDATE games SET status = 4, gameEnd = CONCAT("Po 5 min bezczynności gra zakończona za życzenie gracza: ", ?) WHERE name = ?';
+                    $stmt = $connection -> prepare($sql);
+                    $stmt -> bind_param("ss", $_SESSION['nickname'], $_SESSION['serverName']);
+                    $stmt -> execute();
+                    $stmt -> close();
+                }
+            }
+        break;
     }
     mysqli_close($connection);
 ?>

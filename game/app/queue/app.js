@@ -248,12 +248,29 @@ function getReadyPlayers() {
     let xml = new XMLHttpRequest;
     xml.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
-            document.querySelector(".gameReturnBlock").innerHTML = "Gotowych graczy: "+this.responseText+"/2";
-            if (this.responseText == "2") {
+            let data = this.responseText.split(";");
+            let players = data[0];
+            document.querySelector(".gameReturnBlock").innerHTML = "Gotowych graczy: "+players+"/2";
+            if (players == "2") {
                 window.location = "battleField.php";
             }
-        }
+            if (parseInt(data[1])+300 < parseInt(data[2])) {
+                document.querySelector(".fastEnd").innerHTML = `<button onclick="earlyEnd()">Zgłoś przedwczesne zakończenie gry</button>`;
+            } else {
+                document.querySelector(".fastEnd").innerHTML = "";
+            }
+        } 
     }
     xml.open("GET", "app/queue/queueEngine.php?action=4", true);
+    xml.send();
+}
+function earlyEnd() {
+    let xml = new XMLHttpRequest;
+    xml.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            console.log(this.responseText);
+        } 
+    }
+    xml.open("GET", "app/game/gameEngine.php?action=2", true);
     xml.send();
 }
