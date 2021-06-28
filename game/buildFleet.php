@@ -68,6 +68,8 @@
         <script>var motiveAccess = <?php  echo ((isset($_COOKIE['motive'])) ? $_COOKIE['motive'] : 0); ?>;</script>
         <script src="../mainApp.js"></script>
         <script src="app/queue/app.js"></script>
+        <script src="app/queue/fleetEvents.js"></script>
+
     </head>
     <body>
         <header class="noSelectText">
@@ -108,7 +110,6 @@
             </main>
         </section>
         <div class="changeMotive" onclick="changeMotive()"> 
-            <img src="photos/ico/sun-solid.svg">
         </div>
         <script>
             buildEngine(0);

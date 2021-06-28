@@ -61,7 +61,6 @@
             </main>
         </section>
         <div class="changeMotive" onclick="changeMotive()"> 
-            <img src="photos/ico/sun-solid.svg">
         </div>
         <script>
             queueEngine(0);

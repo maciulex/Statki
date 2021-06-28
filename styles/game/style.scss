@@ -4,6 +4,8 @@ $backgroundColorThird-Dark: #585c6b;
 $backgroundColorFour-Dark: #7D869C;
 $gameBackground-Dark: #4F5D75;
 $borderColor-Dark: #40434E;
+$textColor-Dark: whitesmoke; 
+
 
 $backgroundColor-Light: #f5cac5;
 $backgroundColorSecond-Light: #ffddd2;
@@ -11,6 +13,7 @@ $backgroundColorThird-Light: #fcd5cf;
 $backgroundColorFour-Light: #ffe5d9;
 $borderColor-Light: #f8cfc8;
 $gameBackground-Light: #ffaea8;
+$textColor-Light: black; 
 
 .noSelectText, br {
     -webkit-user-select: none;
@@ -40,7 +43,6 @@ body {
                 cursor: pointer;
                 border-radius: 5px;
                 border: none;
-                color: whitesmoke;
                 padding: 5px;
             }
         }
@@ -210,6 +212,7 @@ body {
         a {
             button {
                 background-color: $backgroundColorFour-Dark;
+                color: $textColor-Dark;
             }
         }
     }
@@ -260,6 +263,7 @@ body {
         a {
             button {
                 background-color: $backgroundColorFour-Light;
+                color: $textColor-Light;
             }
         }
     }

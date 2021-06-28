@@ -54,7 +54,6 @@ body header a button {
   cursor: pointer;
   border-radius: 5px;
   border: none;
-  color: whitesmoke;
   padding: 5px;
 }
 
@@ -244,62 +243,17 @@ body .mainProfil main form {
   text-align: center;
 }
 
-.dayMotive {
-  color: black !important;
-  background-color: #f5cac5;
-}
-
-.dayMotive header {
-  background-color: #ffddd2;
-}
-
-.dayMotive header a button {
-  background-color: #ffe5d9;
-}
-
-.dayMotive section aside {
-  background-color: #fcd5cf;
-}
-
-.dayMotive section main .gameList .gameListGame {
-  background-color: #ffaea8;
-}
-
-.dayMotive section main .gameList .gameListGame .gameListGameJoin {
-  border-left: 2px dashed #f8cfc8;
-}
-
-.dayMotive section main .gameList .gameListGame .gameListGameJoin:hover {
-  background-color: #fcd5cf;
-}
-
-.dayMotive .gameCreateMainContainer .gameCreateMain {
-  background-color: #ffaea8;
-  border: 1px solid #f8cfc8;
-}
-
-.dayMotive .gameCreateMainContainer .gameCreateMain hr {
-  border-color: #f8cfc8;
-}
-
-.dayMotive .gameCreateMainContainer .gameCreateMain form section:hover {
-  background-color: #fcd5cf;
-}
-
-.dayMotive .gameCreateMainContainer .gameCreateMain form input {
-  background-color: #ffe5d9;
-}
-
-.dayMotive .gameCreateMainContainer .gameCreateMain form button {
-  background-color: #ffe5d9;
-}
-
-.dayMotive .mainProfil main {
-  background-color: #ffddd2;
-}
-
-.dayMotive .mainProfil main hr {
-  border-color: #f8cfc8;
+.changeMotive {
+  width: 50px;
+  height: 50px;
+  position: absolute;
+  top: calc(100% - 75px);
+  left: calc(100% - 75px);
+  background-color: brown;
+  padding: 4px;
+  border-radius: 50%;
+  border: 1px solid black;
+  cursor: pointer;
 }
 
 .nightMotive {
@@ -312,6 +266,7 @@ body .mainProfil main form {
 
 .nightMotive header a button {
   background-color: #7D869C;
+  color: whitesmoke;
 }
 
 .nightMotive section aside {
@@ -359,16 +314,62 @@ body .mainProfil main form {
   border-color: #40434E;
 }
 
-.changeMotive {
-  width: 50px;
-  height: 50px;
-  position: absolute;
-  top: calc(100% - 75px);
-  left: calc(100% - 75px);
-  background-color: brown;
-  padding: 4px;
-  border-radius: 50%;
-  border: 1px solid black;
-  cursor: pointer;
+.dayMotive {
+  color: black !important;
+  background-color: #f5cac5;
+}
+
+.dayMotive header {
+  background-color: #ffddd2;
+}
+
+.dayMotive header a button {
+  background-color: #ffe5d9;
+  color: black;
+}
+
+.dayMotive section aside {
+  background-color: #fcd5cf;
+}
+
+.dayMotive section main .gameList .gameListGame {
+  background-color: #ffaea8;
+}
+
+.dayMotive section main .gameList .gameListGame .gameListGameJoin {
+  border-left: 2px dashed #f8cfc8;
+}
+
+.dayMotive section main .gameList .gameListGame .gameListGameJoin:hover {
+  background-color: #fcd5cf;
+}
+
+.dayMotive .gameCreateMainContainer .gameCreateMain {
+  background-color: #ffaea8;
+  border: 1px solid #f8cfc8;
+}
+
+.dayMotive .gameCreateMainContainer .gameCreateMain hr {
+  border-color: #f8cfc8;
+}
+
+.dayMotive .gameCreateMainContainer .gameCreateMain form section:hover {
+  background-color: #fcd5cf;
+}
+
+.dayMotive .gameCreateMainContainer .gameCreateMain form input {
+  background-color: #ffe5d9;
+}
+
+.dayMotive .gameCreateMainContainer .gameCreateMain form button {
+  background-color: #ffe5d9;
+}
+
+.dayMotive .mainProfil main {
+  background-color: #ffddd2;
+}
+
+.dayMotive .mainProfil main hr {
+  border-color: #f8cfc8;
 }
 /*# sourceMappingURL=style.css.map */

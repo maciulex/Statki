@@ -4,6 +4,7 @@ $backgroundColorThird-Dark: #585c6b;
 $backgroundColorFour-Dark: #7D869C;
 $gameBackground-Dark: #4F5D75;
 $borderColor-Dark: #40434E;
+$textColor-Dark: whitesmoke; 
 
 $backgroundColor-Light: #f5cac5;
 $backgroundColorSecond-Light: #ffddd2;
@@ -11,6 +12,7 @@ $backgroundColorThird-Light: #fcd5cf;
 $backgroundColorFour-Light: #ffe5d9;
 $borderColor-Light: #f8cfc8;
 $gameBackground-Light: #ffaea8;
+$textColor-Light: black; 
 
 body {
     padding: 0;
@@ -55,7 +57,6 @@ body {
                 cursor: pointer;
                 border-radius: 5px;
                 border: none;
-                color: whitesmoke;
                 padding: 5px;
             }
         }
@@ -206,64 +207,18 @@ body {
     }
 } 
 
-.dayMotive {
-    color: black !important;
-    background-color: $backgroundColor-Light;
-    header {
-        background-color: $backgroundColorSecond-Light;
-        a {
-            button {
-                background-color: $backgroundColorFour-Light;
-            }
-        }
-    }
-    section {
-        aside {
-            background-color: $backgroundColorThird-Light;
-        }
-        main {
-            .gameList {
-                .gameListGame {
-                    background-color: $gameBackground-Light;
-                    .gameListGameJoin {
-                        border-left: 2px dashed $borderColor-Light;
-                    }
-                    .gameListGameJoin:hover {
-                        background-color: $backgroundColorThird-Light;
-                    }
-                }
-            }
-        }
-    }
-    .gameCreateMainContainer {
-        .gameCreateMain {
-            background-color: $gameBackground-Light; 
-            border: 1px solid $borderColor-Light;
-            hr {
-                border-color: $borderColor-Light;
-            }
-            form {
-                section:hover {
-                    background-color: $backgroundColorThird-Light;
-                }
-                input {
-                    background-color: $backgroundColorFour-Light;
-                }
-                button {
-                    background-color: $backgroundColorFour-Light;
-                }
-            }
-        }
-    }
-    .mainProfil {
-        main {
-            background-color: $backgroundColorSecond-Light;
-            hr {
-                border-color: $borderColor-Light;
-            }
-        } 
-    }
-} 
+.changeMotive {
+    width: 50px;
+    height: 50px;
+    position: absolute;
+    top: calc(100% - 75px);
+    left:calc(100% - 75px);
+    background-color: brown;
+    padding: 4px;
+    border-radius: 50%;
+    border: 1px solid black;
+    cursor: pointer;
+}
 
 .nightMotive {
     background-color: $backgroundColor-Dark;
@@ -272,6 +227,7 @@ body {
         a {
             button {
                 background-color: $backgroundColorFour-Dark;
+                color: $textColor-Dark;
             }
         }
     }
@@ -322,15 +278,63 @@ body {
         } 
     }
 } 
-.changeMotive {
-    width: 50px;
-    height: 50px;
-    position: absolute;
-    top: calc(100% - 75px);
-    left:calc(100% - 75px);
-    background-color: brown;
-    padding: 4px;
-    border-radius: 50%;
-    border: 1px solid black;
-    cursor: pointer;
-}
+
+.dayMotive {
+    color: black !important;
+    background-color: $backgroundColor-Light;
+    header {
+        background-color: $backgroundColorSecond-Light;
+        a {
+            button {
+                background-color: $backgroundColorFour-Light;
+                color: $textColor-Light;
+            }
+        }
+    }
+    section {
+        aside {
+            background-color: $backgroundColorThird-Light;
+        }
+        main {
+            .gameList {
+                .gameListGame {
+                    background-color: $gameBackground-Light;
+                    .gameListGameJoin {
+                        border-left: 2px dashed $borderColor-Light;
+                    }
+                    .gameListGameJoin:hover {
+                        background-color: $backgroundColorThird-Light;
+                    }
+                }
+            }
+        }
+    }
+    .gameCreateMainContainer {
+        .gameCreateMain {
+            background-color: $gameBackground-Light; 
+            border: 1px solid $borderColor-Light;
+            hr {
+                border-color: $borderColor-Light;
+            }
+            form {
+                section:hover {
+                    background-color: $backgroundColorThird-Light;
+                }
+                input {
+                    background-color: $backgroundColorFour-Light;
+                }
+                button {
+                    background-color: $backgroundColorFour-Light;
+                }
+            }
+        }
+    }
+    .mainProfil {
+        main {
+            background-color: $backgroundColorSecond-Light;
+            hr {
+                border-color: $borderColor-Light;
+            }
+        } 
+    }
+} 
