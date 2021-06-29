@@ -9,11 +9,11 @@ function changeMotive() {
     } 
     switch (mov) {
         case 0:
-            document.cookie = "motive=1;"+expires;
+            document.cookie = "motive=1;"+expires+";path=/";
             window.motiveAccess = 1;
         break;
         case 1:
-            document.cookie = "motive=0;"+expires;
+            document.cookie = "motive=0;"+expires+";path=/";
             window.motiveAccess = 0;
         break;
     }
@@ -22,7 +22,7 @@ function changeMotive() {
 function setMotive() {
     let buttonPlace = document.querySelector(".changeMotive");
     let pathName = "/"+(window.location.pathname.split("/")[1])+"/";
-    switch (window.motiveAccess) {
+    switch (window.motiveAccess) { 
         case 0:
             buttonPlace.innerHTML = `<img src="${pathName}photos/ico/moon-solid.svg">`;
             document.querySelector("body").classList.add("dayMotive");

@@ -92,7 +92,7 @@ function loadGames() {
 function gameJoin(name, password) {
     if (password == "1") {
         window.location = "app/gameJoin.php?name="+name;
-    } else {
+    } else { 
         window.location = "app/gameJoin.php?name="+name+"&password="+prompt("Podaj hasło");
     }
 }

@@ -158,6 +158,19 @@
                     $stmt -> bind_param("ss", $_SESSION['nickname'], $_SESSION['serverName']);
                     $stmt -> execute();
                     $stmt -> close();
+                    $stats = array(0,1);
+                    $sql = "UPDATE users SET inGame = 0, SgamesAbound = SgamesAbound + ?, SgamesEarlyEnd = SgamesEarlyEnd + ? WHERE nickname = ?";
+                    $stmt = $connection -> prepare($sql);
+                    foreach ($playersNicks as $key) {
+                        if ($key == $_SESSION["nickname"]) {
+                            $stmt -> bind_param("iis", $stats[0], $stats[1], $playersNicks[0]);
+                            $stmt -> execute();
+                        } else {
+                            $stmt -> bind_param("iis", $stats[1], $stats[0], $playersNicks[1]);
+                            $stmt -> execute();
+                        }
+                    }
+                    $stmt -> close();
                 }
             }
         break;
