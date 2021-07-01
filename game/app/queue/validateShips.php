@@ -19,8 +19,8 @@
         echo "error";
         exit();
     }
-    $gameShips;$playersNicks;
-    $sql = "SELECT gameShips, playersNicks FROM games WHERE name = ?";
+    $gameShips;$playersNicks;$status;
+    $sql = "SELECT gameShips, playersNicks, status FROM games WHERE name = ?";
     $stmt = $connection -> prepare($sql);
     $stmt -> bind_param("s", $_SESSION['serverName']);
     $stmt -> execute();
@@ -32,9 +32,14 @@
         mysqli_close($connection);
         exit();
     }
-    $stmt -> bind_result($gameShips,$playersNicks);
+    $stmt -> bind_result($gameShips,$playersNicks, $status);
     $stmt -> fetch();
     $stmt -> close();
+    if ($status != "2") {
+        echo "error 2.5";
+        mysqli_close($connection);
+        exit();
+    }
     $gameShips = explode(";;", $gameShips);
     foreach ($gameShips as $key) {
         $localKey = explode(";", $key);

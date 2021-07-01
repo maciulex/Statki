@@ -35,16 +35,50 @@
             exit();
         }
         $stmt -> close();
-        $sql = "SELECT password, privacy, status, players, playersNicks, id FROM games WHERE BINARY name = BINARY ?";
+        $sql = "SELECT password, privacy, status, players, playersNicks, id, readyFleets FROM games WHERE BINARY name = BINARY ?";
         $stmt = $connection -> prepare($sql);
         $stmt -> bind_param("s", $_GET['name']);
         $stmt -> execute();
         $stmt -> store_result();
         $rows = $stmt -> num_rows;
-        $stmt -> bind_result($password, $privacy, $status, $players, $playersNicks, $id);
+        $stmt -> bind_result($password, $privacy, $status, $players, $playersNicks, $id, $readyFleets);
         $stmt -> fetch();
         $stmt -> close();
-        if (intval($status) == 4) {
+        $status = intval($status);
+        if (($status == 5 || $status == 4) && isset($_GET["code"]) && $_GET["code"] == "revange") {
+            $playersNicks = explode(";", $playersNicks);
+            $iterator = 0;
+            foreach($playersNicks as $key) {
+                if ($key == $_SESSION['nickname']) {
+                    $readyFleets = explode(";", $readyFleets);
+                    if ($playersNicks[0] == $key || $playersNicks[1] == $key) {
+                        $readyFleets[$iterator] = $key;
+                        $sql = "UPDATE users SET inGame = ? WHERE nickname = ?";
+                        $stmt = $connection -> prepare($sql);
+                        $stmt -> bind_param("is", $id, $_SESSION['nickname']);
+                        $stmt -> execute();
+                        $readyFleets = implode(";",$readyFleets);
+                        $sql = "UPDATE games SET readyFleets = ?, status = 5 WHERE name = ?";
+                        $stmt -> prepare($sql);
+                        $stmt -> bind_param("ss", $readyFleets, $_GET['name']);
+                        $stmt -> execute();
+                        $stmt -> close();
+                        $_SESSION['serverName'] = $_GET['name'];
+                        mysqli_close($connection);
+                        header("Location: ../../game/gameQueue.php");
+                        exit();
+                    } else {
+                        echo "error";
+                        mysqli_close($connection);
+                        $_SESSION['error'] = "Coś się nie udało! 2.5";
+                        //header("Location: ../../index.php");
+                        exit();
+                    }
+                    break;
+                }
+                $iterator += 1;
+            }
+        } else if ($status == 4) {
             header('Location: ../../game/postGame.php?serverName='.$_GET['name']);
             mysqli_close($connection);
             exit();

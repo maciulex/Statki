@@ -51,6 +51,9 @@
                         case 3:
                             $status = "W grzę";
                         break;
+                        case 5:
+                            $status = "Poczekalnia rewanżu";
+                        break;
                     }
                     echo '
                     <section class="gameReturnBlock">

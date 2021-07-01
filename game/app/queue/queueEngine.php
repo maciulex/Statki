@@ -22,14 +22,32 @@
     switch ($action) {
         case 0:
             $players;
-            $sql = "SELECT name, status, playersNicks, privacy, players, lastAction FROM games WHERE BINARY name = BINARY ?";
+            $sql = "SELECT name, status, playersNicks, privacy, players, lastAction,readyFleets FROM games WHERE BINARY name = BINARY ?";
             $stmt = $connection -> prepare($sql);
             $stmt -> bind_param("s", $_SESSION['serverName']);
             $stmt -> execute();
             $stmt -> store_result();
             $rows = $stmt -> num_rows;
-            $stmt -> bind_result($name, $status, $playersNicks, $privacy, $playersINT,$lastAction);
+            $stmt -> bind_result($name, $status, $playersNicks, $privacy, $playersINT,$lastAction, $readyFleets);
             $stmt -> fetch();
+            if ($status == "5") {
+                $readyFleets = explode(";",$readyFleets);
+                $iterator = 0;
+                foreach ($readyFleets as $key) {
+                    if ($key != "") {
+                        $iterator += 1;
+                    }
+                }
+                if ($iterator == 2) {
+                    $status = 2;
+                    $plainShips = "0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;3;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0";
+                    $sql = 'UPDATE games SET status = 2, shipsP1 = ?, shipsP2 = ?, whosTour = 0, readyFleets = ";" WHERE name = ?';
+                    $stmt2 = $connection -> prepare($sql);
+                    $stmt2 -> bind_param("sss", $plainShips, $plainShips, $_SESSION['serverName']);
+                    $stmt2 -> execute();
+                    $stmt2 -> close();
+                }
+            }
             if ($rows == 1) {
                 $players = explode(";", $playersNicks);
                 echo $name.";".$status.";".$privacy.";".$playersINT.";".$players[0].";".$lastAction.";".time();
@@ -59,7 +77,7 @@
             $stmt -> close();
         break;
         case 1:
-            $sql = 'SELECT playersNicks, status FROM games WHERE BINARY name = BINARY ?';
+            $sql = 'SELECT playersNicks, status,readyFleets FROM games WHERE BINARY name = BINARY ?';
             $stmt = $connection -> prepare($sql);
             $stmt -> bind_param("s", $_SESSION['serverName']);
             $stmt -> execute();
@@ -70,8 +88,30 @@
                 mysqli_close($connection);
                 exit();
             }
-            $stmt -> bind_result($playersNicks, $status);
+            $stmt -> bind_result($playersNicks, $status, $readyFleets);
             $stmt -> fetch();
+            if ($status == "5") {
+                $readyFleets = explode(";", $readyFleets);
+                foreach ($readyFleets as $key) {
+                    if ($key == $_SESSION["nickname"]) {
+                        $key = "";
+                        break;
+                    }
+                }
+                $readyFleets = implode(";",$readyFleets);
+                $sql = "UPDATE games SET readyFleets = ? WHERE name = ?";
+                $stmt2 = $connection -> prepare($sql);
+                $stmt2 -> bind_param("ss", $readyFleets, $_SESSION["serverName"]);
+                $stmt2 -> execute();
+                $sql = "UPDATE users SET inGame = 0; WHERE nickname = ?";
+                $stmt2 -> prepare($sql);
+                $stmt2 -> bind_param("s", $_SESSION['nickname']);
+                $stmt2->execute();
+                $stmt2 -> close();
+                $stmt  -> close();
+                mysqli_close($connection);
+                exit();
+            }
             if ($status != "1") {
                 echo "error 5";
                 mysqli_close($connection);
@@ -119,6 +159,7 @@
             $stmt -> fetch();
             if ($status != "1") {
                 echo "error 5";
+                $stmt -> close();
                 mysqli_close($connection);
                 exit();
             }
@@ -205,7 +246,7 @@
             $stmt -> close();
             if ($readyPlayers == 2) {
                 $time = time();
-                $sql = 'UPDATE games SET status = 3, lastAction = ? WHERE name = ?';
+                $sql = 'UPDATE games SET status = 3, lastAction = ?, readyFleets = ";" WHERE name = ?';
                 $stmt = $connection -> prepare($sql);
                 $stmt -> bind_param("ds", $time, $_SESSION['serverName']);
                 $stmt -> execute();

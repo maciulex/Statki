@@ -7,11 +7,11 @@ function postGameEngine() {
         xml.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
                 if (this.responseText[0] == "e" && this.responseText[4] == "r") {
+                    console.log(this.responseText);
                     alert("wystąpił błąd ");
                     return;
                 }
                 dealData(this.responseText);
-
             }
         }
         xml.open("GET", "app/postGame/postGame.php?serverName="+server, true);
@@ -59,6 +59,9 @@ function loadPages() {
             </div>
         `;
         place.innerHTML += raw; 
+        if (localData[0] == "true") {
+            document.querySelector(".mainQueue aside").innerHTML += `<button onclick='window.location = "../mainLogged/app/gameJoin.php?name=${server}&code=revange"'>Rewanż</button>`;
+        }
     }
     function gameLoad() {
         let place = document.querySelector(".mainQueue aside");
@@ -93,10 +96,10 @@ function loadPages() {
             }
         }
     }
+    gameLoad();
     for (let i = 0; i < 2; i++) {
         playerLoad(data[1][i]);
     }
-    gameLoad();
     document.querySelector(".buttonForChange").innerHTML = `<button onclick="changeCard(1)">Pokaż planszę</button>`;
 }
 function drawBoards() {

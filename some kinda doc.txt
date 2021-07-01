@@ -1,0 +1,8 @@
+games statues 
+    1 nie rozpoczęta w Lobby
+    2 budowa floty
+    3 walka
+    4 koniec
+    5 revange lobby - w razie rozpoczęcia -> 2
+
+001 - connect_errno > 0

@@ -163,10 +163,10 @@
                     $stmt = $connection -> prepare($sql);
                     foreach ($playersNicks as $key) {
                         if ($key == $_SESSION["nickname"]) {
-                            $stmt -> bind_param("iis", $stats[0], $stats[1], $playersNicks[0]);
+                            $stmt -> bind_param("iis", $stats[0], $stats[1], $key);
                             $stmt -> execute();
                         } else {
-                            $stmt -> bind_param("iis", $stats[1], $stats[0], $playersNicks[1]);
+                            $stmt -> bind_param("iis", $stats[1], $stats[0], $key);
                             $stmt -> execute();
                         }
                     }

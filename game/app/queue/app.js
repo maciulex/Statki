@@ -1,3 +1,4 @@
+var status;
 var host = false;
 var playersNumber = 0;
 var size;
@@ -38,6 +39,9 @@ function queueEngine(arg) {
         if (host) {
             hostLoad();
         }
+        if (status == "5") {
+            document.querySelector("#throwOut").parentNode.innerHTML="";
+        }
     }
     function playerLoad(data) {
         let iStillHERE = false;
@@ -55,7 +59,7 @@ function queueEngine(arg) {
                 iStillHERE = true;
                 kick = `<button onclick="queueEngine(1)">Opuść grę</button>`;
             } else if (host && localData[0] == "false") {
-                kick = `<button onclick="queueEngine(2)">Wyrzuć gracza</button>`;
+                kick = `<button onclick="queueEngine(2)" id="throwOut">Wyrzuć gracza</button>`;
             }
             if (localData[6] == "false") {
                 var avatar = "def.jpg"; 
@@ -67,7 +71,7 @@ function queueEngine(arg) {
                     <section class="header">
                         <img src="../photos/avatars/${avatar}">
                         <section>
-                            <h1>${localData[1]} <br> ${kick}</h1>
+                            <h1>${localData[1]} <br> <div>${kick}</div></h1>
                             <div>
                                 Opis gracza: ${localData[2]}
                             </div>
@@ -86,6 +90,7 @@ function queueEngine(arg) {
     }
     function gameLoad(data) {
         data = data.split(";");
+        status = data[1];
         if (data[1] == "2") {
             window.location = "buildFleet.php";
         } else if (data[1] == "3") {
@@ -114,6 +119,8 @@ function queueEngine(arg) {
                     return "W trakcie przygotowań";   
                 case '4':
                     return "Zakończona";
+                case '5':
+                    return "Poczekalnia rewanżu";
             }
         }
         function getPrivacy(arg) {

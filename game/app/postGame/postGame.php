@@ -26,7 +26,7 @@
         $players = explode(";", $playersNicks);
         echo $name.";".$status.";".$privacy.";".$playersINT.";".$players[0].";".$gameEnd;
     } else {
-        echo "error 3";
+        echo "error 3 ".$_GET['serverName'];
         $stmt -> close();
         mysqli_close($connection);
         exit();
@@ -38,6 +38,10 @@
     $data = array();
     foreach ($players as $key) {
         if ($key != "" && !empty($key)) {
+            $me = "false";
+            if ($key == $_SESSION['nickname']) {
+                $me = "true";
+            }
             $stmt -> bind_param("s", $key);
             $stmt -> execute();
             $stmt -> store_result();
@@ -46,7 +50,7 @@
             if ($avatar == "" || empty($avatar)) {
                 $avatar = "false";
             }
-            $data[] = "false;".$nickname.";".$descryption.";".$Sgames.";".$SgamesWin.";".$SgamesLose.";".$avatar;
+            $data[] = $me.";".$nickname.";".$descryption.";".$Sgames.";".$SgamesWin.";".$SgamesLose.";".$avatar;
         }
     }
     echo implode(";;", $data);

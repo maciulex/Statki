@@ -2,6 +2,7 @@
     function gotoF($arg) {
         switch ($arg) {
             case "1":
+            case "5":
                 header("Location: gameQueue.php");
             break;
             case "2":
@@ -38,8 +39,10 @@
     $stmt -> store_result();
     $stmt -> bind_result($status);
     $stmt -> fetch();
+    $stmt -> close();
     switch ($status) {
         case "1":
+        case "5":
             if ($page != "queue") {
                 gotoF($status);
             }

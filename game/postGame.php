@@ -28,7 +28,7 @@
         <script>var motiveAccess = <?php  echo ((isset($_COOKIE['motive'])) ? $_COOKIE['motive'] : 0); ?>;</script>
         <script src="../mainApp.js"></script>
         <script>
-            let server = "<?php (isset($_GET['serverName'])) ? function(){echo $_GET['serverName'];} : function(){header("Location: ../mainLogged/"); exit();}; ?>";
+            let server = "<?php if(isset($_GET['serverName'])) {echo $_GET['serverName'];} else {header("Location: ../mainLogged/"); exit();}; ?>";
         </script>
         <script src="app/postGame/app.js"></script>
     </head>

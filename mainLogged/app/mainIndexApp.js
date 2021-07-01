@@ -55,6 +55,8 @@ function loadGames() {
                     return "W trakcie przygotowań";   
                 case '4':
                     return "Zakończona";
+                case '5':
+                    return "Poczekalnia rewanżu";
             }
         }
         function getJoinText(arg) {
