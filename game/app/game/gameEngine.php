@@ -46,15 +46,15 @@
             //shoting
             $cord = intval($_GET['cord']);
             if (!empty($cord) && $cord > -1 && $cord < 100) {
-                $playersNicks; $whosTour; $ships= array();
-                $sql = "SELECT playersNicks, whosTour, shipsP1, shipsP2, status FROM games WHERE name = ?";
+                $playersNicks; $whosTour; $ships = array(); $status; $score;
+                $sql = "SELECT playersNicks, whosTour, shipsP1, shipsP2, status, score FROM games WHERE name = ?";
                 $stmt = $connection -> prepare($sql);
                 $stmt -> bind_param("s", $_SESSION['serverName']);
                 $stmt -> execute();
                 $stmt -> store_result();
-                $stmt -> bind_result($playersNicks, $whosTour, $ships[0], $ships[1], $status);
+                $stmt -> bind_result($playersNicks, $whosTour, $ships[0], $ships[1], $status, $score);
                 $stmt -> fetch();
-                $stmt->close();
+                $stmt-> close();
                 if ($status == "3") {
                     $playersNicks = explode(";",$playersNicks);
                     if ($playersNicks[$whosTour] == $_SESSION["nickname"]) {
@@ -96,6 +96,13 @@
                         $stmt -> execute();
                         $stmt-> close();
                         if ($gameEnd) {
+                            $score = explode(";", $score);
+                            if ($playersNicks[0] == $_SESSION["nickname"]){
+                                $score[0] = intval($score[0])+1;
+                            } else {
+                                $score[1] = intval($score[1])+1;
+                            }
+                            $score = implode(";", $score);
                             $stats = array(0,0);
                             $winMess = "Wygrał gracz ".$playersNicks[intval($whosTour)];
                             if ($whosTour == "0") {
@@ -105,9 +112,9 @@
                                 $stats[0] = 0;
                                 $stats[1] = 1;
                             }
-                            $sql = "UPDATE games SET status = 4, gameEnd = ? WHERE name = ?";
+                            $sql = "UPDATE games SET status = 4, gameEnd = ?, score = ? WHERE name = ?";
                             $stmt = $connection -> prepare($sql);
-                            $stmt -> bind_param("ss", $winMess, $_SESSION['serverName']);
+                            $stmt -> bind_param("sss", $winMess, $score, $_SESSION['serverName']);
                             $stmt -> execute();
                             $stmt -> close();
                             $sql = "UPDATE users SET inGame = 0, Sgames = Sgames + 1, SgamesWin = SgamesWin + ?, SgamesLose = SgamesLose + ? WHERE nickname = ?";
@@ -125,7 +132,7 @@
         case 2:
             //early end >:
             echo"WORKING";
-            $lastAction; $playersNicks;
+            $lastAction; $playersNicks; $status;
             $sql = "SELECT lastAction, playersNicks, status FROM games WHERE name = ?";
             $stmt = $connection -> prepare($sql);
             $stmt -> bind_param("s", $_SESSION["serverName"]);

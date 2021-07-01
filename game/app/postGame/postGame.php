@@ -14,17 +14,17 @@
     }
     $connection = new mysqli($db_host, $db_user, $db_password, $db_name);
     $players;
-    $sql = "SELECT name, status, playersNicks, privacy, players, shipsP1, shipsP2, gameEnd FROM games WHERE BINARY name = BINARY ?";
+    $sql = "SELECT name, status, playersNicks, privacy, players, shipsP1, shipsP2, gameEnd, score FROM games WHERE BINARY name = BINARY ?";
     $stmt = $connection -> prepare($sql);
     $stmt -> bind_param("s", $_GET['serverName']);
     $stmt -> execute();
     $stmt -> store_result();
     $rows = $stmt -> num_rows;
-    $stmt -> bind_result($name, $status, $playersNicks, $privacy, $playersINT, $shipP1, $shipP2, $gameEnd);
+    $stmt -> bind_result($name, $status, $playersNicks, $privacy, $playersINT, $shipP1, $shipP2, $gameEnd,$score);
     $stmt -> fetch();
     if ($rows == 1) {
         $players = explode(";", $playersNicks);
-        echo $name.";".$status.";".$privacy.";".$playersINT.";".$players[0].";".$gameEnd;
+        echo $name.";".$status.";".$privacy.";".$playersINT.";".$players[0].";".$gameEnd.";".$score.";".$playersNicks;
     } else {
         echo "error 3 ".$_GET['serverName'];
         $stmt -> close();

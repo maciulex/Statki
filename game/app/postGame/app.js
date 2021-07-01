@@ -65,6 +65,8 @@ function loadPages() {
     }
     function gameLoad() {
         let place = document.querySelector(".mainQueue aside");
+        let players = "Gracze: " + data[0][8] + ", " + data[0][9];
+        let score = "Wynik: " + data[0][6] + " : " + data[0][7];
         place.innerHTML = `
             <br><br>
             Nazwa gry: ${data[0][0]}<br>
@@ -73,6 +75,9 @@ function loadPages() {
             Graczy: ${data[0][3]}/2<br>
             Host: ${data[0][4]}<br>
             ${data[0][5]}<br>
+            ${players}<br>
+            ${score}<br>
+
             <div class="buttonForChange"></div>
         `;
         function getStatus(arg) {
