@@ -103,8 +103,8 @@
                                 $score[1] = intval($score[1])+1;
                             }
                             $score = implode(";", $score);
-                            $stats = array(0,0);
                             $winMess = "Wygrał gracz ".$playersNicks[intval($whosTour)];
+                            $stats = array(0,0);
                             if ($whosTour == "0") {
                                 $stats[0] = 1;
                                 $stats[1] = 0;
